@@ -4,9 +4,16 @@
     "airbnb",
     "eslint:recommended"
   ],
-  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "plugins": [
+    "@typescript-eslint/eslint-plugin",
+    "react",
+    "react-hooks",
+    "jest"
+  ],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx", ".js", ".ts"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx", ".js", ".ts"] }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "import/extensions": [".js",".jsx",".ts",".tsx"],
