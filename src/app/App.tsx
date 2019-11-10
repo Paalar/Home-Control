@@ -1,9 +1,11 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import RoutineComponent from '../components/RoutineComponent/index';
+import * as RoutineTypes from '../constants/RoutineTypes';
 
 const App = (): JSX.Element => (
-  <div className="App">
-    hello
+  <div id="container">
+    <RoutineComponent type={RoutineTypes.LightsRoutine} />
   </div>
 );
 
