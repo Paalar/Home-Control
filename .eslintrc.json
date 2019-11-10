@@ -2,18 +2,21 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "airbnb",
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
     "@typescript-eslint/eslint-plugin",
     "react",
-    "react-hooks",
-    "jest"
+    "react-hooks"
   ],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx", ".js", ".ts"] }],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off"
   },
   "settings": {
     "import/extensions": [".js",".jsx",".ts",".tsx"],
@@ -29,5 +32,8 @@
   "env": {
     "jest": true,
     "browser": true
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
   }
 }
