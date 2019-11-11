@@ -1,0 +1,12 @@
+@import "../../assets/colors.scss";
+
+#departures-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bus-pane {
+  display: flex;
+  justify-content: space-between;
+}

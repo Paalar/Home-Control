@@ -1,0 +1,15 @@
+@import "../../assets/colors.scss";
+
+.city-bike-pane {
+  display: flex;
+  justify-content: space-between;
+}
+
+.city-bike-bicycles {
+  display: flex;
+  justify-content: center;
+}
+
+.city-bike-icon {
+  vertical-align: middle;
+}
