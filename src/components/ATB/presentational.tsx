@@ -22,7 +22,6 @@ const createBusPanes = (departures: EstimatedCall[], currentTime: moment.Moment)
 
 const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => {
   const { departuresFromCityCenter, departuresToCityCenter, currentTime } = props;
-  console.log(departuresFromCityCenter);
   return (
     <div id="atb-container" className="info-container first-box">
       <h1 className="title">

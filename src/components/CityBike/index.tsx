@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Presentational from './presentational';
-import { fetchCityBikeData, fetchCityBikeStationStatus } from '../../api/API';
+import { fetchCityBikeStations, fetchCityBikeStationStatuses } from '../../api/cityBike';
 import ICityBike, { Station, StationStatus } from '../../interfaces/CityBikeInterfaces';
 import './cityBike.scss';
+
+const EACH_HOUR = 60000;
 
 const filterUnusedStations = (stations: Station[]): Station[] => (
   stations.filter((station) => (
@@ -35,12 +37,18 @@ const mergeStationData = (
 );
 
 const CityBike = (): JSX.Element => {
-  const [stations, setStations] = useState([]);
-  const [stationStatus, setStationStatus] = useState([]);
+  const [stations, setStations] = useState<Station[]>([]);
+  const [stationStatus, setStationStatus] = useState<StationStatus[]>([]);
+
+  const fetchStations = (): void => {
+    fetchCityBikeStations()
+      .then((result) => setStations(result.data.stations));
+    fetchCityBikeStationStatuses()
+      .then((result) => setStationStatus(result.data.stations));
+  };
 
   useEffect(() => {
-    fetchCityBikeData(setStations);
-    fetchCityBikeStationStatus(setStationStatus);
+    fetchStations();
   }, []);
 
   if (stations.length === 0 || stationStatus.length === 0) {
@@ -50,6 +58,8 @@ const CityBike = (): JSX.Element => {
   const filteredStations = filterUnusedStations(stations);
   const filteredStatuses = filterUnusedStatuses(filteredStations, stationStatus);
   const mergedData = mergeStationData(filteredStations, filteredStatuses);
+
+  setInterval(fetchStations, EACH_HOUR);
 
   return (
     <Presentational stations={mergedData} />
