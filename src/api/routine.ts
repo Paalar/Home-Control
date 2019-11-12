@@ -1,5 +1,4 @@
 import * as RoutineTypes from '../constants/RoutineTypes';
-import { pauseSpotify } from './spotify';
 import { brewCoffeeEvent } from './ifttt';
 
 const fetchOnClickByRoutineType = (routine: RoutineTypes.RoutineType):

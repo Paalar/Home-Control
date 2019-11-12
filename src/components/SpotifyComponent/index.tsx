@@ -1,4 +1,6 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, {
+  FunctionComponent, useState, useEffect, useCallback,
+} from 'react';
 import Presentational from './presentational';
 import { ReactComponent as SymbolOn } from '../../assets/svgs/music-on.svg';
 import { ReactComponent as SymbolOff } from '../../assets/svgs/music-off.svg';
@@ -14,20 +16,25 @@ const SpotifyComponent: FunctionComponent = (): JSX.Element => {
     .split('&')
     .filter((value) => value.includes('access_token'))[0];
 
+  const updatePlayState = useCallback(
+    () => {
+      if (accessToken.length > 0) {
+        SpotifyApi
+          .getPlaybackState(accessToken)
+          .then((response: SpotifyPlaybackResponse) => setIsPlayingMusic(response.is_playing));
+      }
+    },
+    [accessToken],
+  );
+
   useEffect(() => {
-    if (accessToken.length > 0) {
-      SpotifyApi
-        .getPlaybackState(accessToken)
-        .then((response: SpotifyPlaybackResponse) => console.log(response));
-      SpotifyApi
-        .getPlaybackState(accessToken)
-        .then((response: SpotifyPlaybackResponse) => setIsPlayingMusic(response.is_playing));
-    }
+    updatePlayState();
+
     if (token !== undefined) {
       const value = token.split('=');
       setAccessToken(value[1]);
     }
-  }, [token, accessToken]);
+  }, [token, updatePlayState]);
 
   const playbackAction = isPlayingMusic ? SpotifyApi.pauseSpotify : SpotifyApi.resumeSpotify;
   const onClick = (): void => {
@@ -37,11 +44,11 @@ const SpotifyComponent: FunctionComponent = (): JSX.Element => {
 
   const symbol = isPlayingMusic ? SymbolOff : SymbolOn;
 
+  setInterval(updatePlayState, 10000);
+
   return (
     <Presentational
       Symbol={symbol}
-      // symbolOn={SymbolOn}
-      // symbolOff={SymbolOff}
       onClick={onClick}
       name="Spotify"
     />
