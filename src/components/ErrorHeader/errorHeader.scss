@@ -1,0 +1,20 @@
+$warning-red: #F74909;
+
+.error-container {
+  position: fixed;
+  z-index: 2;
+  background-color: $warning-red;
+  width: 100%;
+  padding: 2rem;
+
+  display: flex;
+  justify-content: center;
+}
+
+.show {
+  display: initial;
+}
+
+.hide {
+  display: none;
+}

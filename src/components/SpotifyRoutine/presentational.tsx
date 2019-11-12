@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SpotifyRoutine } from '../../interfaces/Routine';
 import SpotifyModal from './SpotifyModal';
+import ErrorHeader from '../ErrorHeader';
 
 const Presentational = (props: SpotifyRoutine): JSX.Element => {
   const { Symbol, onClick } = props;
