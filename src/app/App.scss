@@ -34,10 +34,13 @@ p {
 
 .info-container {
   width: 45rem;
-  min-height: 15rem;
   background-color: $primary-color;
-  padding: 15px 25px;
+  padding: 20px;
   color: white;
+
+  :last-child {
+    margin-bottom: 0;
+  }
 }
 
 .title {
