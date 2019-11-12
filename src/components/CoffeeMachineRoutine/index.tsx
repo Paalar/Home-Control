@@ -11,6 +11,7 @@ const CoffeeMachineRoutine: FunctionComponent = (): JSX.Element => {
 
   const startBrewing = (): void => {
     // IFTTApi.brewCoffeeEvent();
+    console.log("Brewing!");
     setIsBrewing(true);
     setTimeout(() => {
       setIsBrewing(false);
