@@ -11,8 +11,10 @@ const Presentational = (props: SpotifyRoutine): JSX.Element => {
   const error = <ErrorHeader errorMessage={errorMessage} />;
 
   const handleClick = (): void => {
-    setActive(!active);
-    onClick();
+    if (onClick !== null) {
+      setActive(!active);
+      onClick();
+    }
   };
 
   const handlePress = (): void => {

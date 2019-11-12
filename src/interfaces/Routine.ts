@@ -19,7 +19,7 @@ interface GenericRoutine {
 
 export interface SpotifyRoutine {
   Symbol: SVG;
-  onClick: () => void;
+  onClick: (() => void) | null;
   errorMessage: string;
 }
 
