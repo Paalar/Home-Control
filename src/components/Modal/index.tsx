@@ -8,6 +8,7 @@ interface Props {
   title: string;
   accept: () => void;
   cancel: () => void;
+  settings: object;
 }
 
 const modalRoot = document.getElementById('modal-root');

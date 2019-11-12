@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.scss';
+import './common.scss';
 import RoutineComponent from '../components/RoutineComponent/index';
 import * as RoutineTypes from '../constants/RoutineTypes';
 import CityBike from '../components/CityBike/index';
 import ATB from '../components/ATB/index';
+import SpotifyComponent from '../components/SpotifyComponent';
 
 const App = (): JSX.Element => (
   <div id="container">
@@ -16,7 +18,7 @@ const App = (): JSX.Element => (
       <RoutineComponent type={RoutineTypes.CoffeeMachineRoutine} />
       <RoutineComponent type={RoutineTypes.LivingRoomHeaterRoutine} />
       <RoutineComponent type={RoutineTypes.BedroomHeaterRoutine} />
-      <RoutineComponent type={RoutineTypes.GoogleHomeRoutine} />
+      <SpotifyComponent />
       <RoutineComponent type={RoutineTypes.PCRoutine} />
       <RoutineComponent type={RoutineTypes.TVRoutine} />
     </div>

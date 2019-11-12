@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import './routineComponent.scss';
 import Modal from '../Modal/index';
-import IModal from '../../interfaces/Modal';
+import RoutineData from '../../interfaces/Routine';
 
 interface Props {
-  symbolOn: string;
-  symbolOff: string;
-  clickEvent: (() => Promise<void>) | null;
-  modalData: IModal;
+  routine: RoutineData;
 }
 
 const Presentational = (props: Props): JSX.Element => {
+  const { routine } = props;
   const {
-    symbolOn, symbolOff, clickEvent, modalData,
-  } = props;
+    symbolOn, symbolOff, onClick, onHold, modal, name,
+  } = routine;
   const [symbol, setSymbol] = useState(symbolOn);
   const [active, setActive] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -24,9 +21,7 @@ const Presentational = (props: Props): JSX.Element => {
     const newSymbol = symbol === symbolOn ? symbolOff : symbolOn;
     setSymbol(newSymbol);
     setActive(!active);
-    if (clickEvent !== null) {
-      clickEvent();
-    }
+    onClick(name);
   };
 
   const handlePress = (): void => {
@@ -42,29 +37,27 @@ const Presentational = (props: Props): JSX.Element => {
     }
   };
 
-  const closeModal = (): void => setPressed(false);
+  // const closeModal = (): void => setPressed(false);
 
-  const createModal = () => {
-    if (modalData.exist) {
-      return (
-        <Modal
-          title={modalData.title!}
-          accept={closeModal}
-          cancel={closeModal}
-        >
-          <p>
-            Hello, BB!
-          </p>
-        </Modal>
-      );
-    }
-  };
+  // const createModal = () => {
+  //   if (modal.exist) {
+  //     return (
+  //       <Modal
+  //         title={modal.title!}
+  //         accept={closeModal}
+  //         cancel={closeModal}
+  //       >
+  //         {onHold(name)}
+  //       </Modal>
+  //     );
+  //   }
+  // };
 
-  const displayModal = pressed && modalData.exist ? createModal() : null;
+  // const displayModal = pressed && modal.exist ? createModal() : null;
 
   return (
     <div className="routine-component-container first-box">
-      {displayModal}
+      {/* displayModal */}
       <div
         className={`routine-symbol-container second-box${active ? ' flip' : ''}`}
         onTouchStart={handlePress}
