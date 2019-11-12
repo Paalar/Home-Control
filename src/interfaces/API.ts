@@ -34,3 +34,10 @@ export interface SpotifyPlaybackResponse {
   device: SpotifyDevice;
   is_playing: boolean;
 }
+
+export interface SpotifyAuthenticationError {
+  error: {
+    message: string;
+    status: number;
+  };
+};

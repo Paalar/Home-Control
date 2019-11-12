@@ -10,6 +10,7 @@ import { SpotifyPlaybackResponse } from '../../interfaces/API';
 const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   const [accessToken, setAccessToken] = useState<string>('');
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const windowHash = window.location.hash;
   const token = windowHash
@@ -21,7 +22,8 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
       if (accessToken.length > 0) {
         SpotifyApi
           .getPlaybackState(accessToken)
-          .then((response: SpotifyPlaybackResponse) => setIsPlayingMusic(response.is_playing));
+          .then((response: SpotifyPlaybackResponse) => setIsPlayingMusic(response.is_playing))
+          .catch((error) => console.log(error));
       }
     },
     [accessToken],
@@ -36,20 +38,27 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
     }
   }, [token, updatePlayState]);
 
-  const playbackAction = isPlayingMusic ? SpotifyApi.pauseSpotify : SpotifyApi.resumeSpotify;
+  const resumeSpotify = (): Promise<Response> => (
+    SpotifyApi.resumeSpotify(accessToken, setErrorMessage)
+  );
+  const pauseSpotify = (): Promise<Response> => (
+    SpotifyApi.pauseSpotify(accessToken, setErrorMessage)
+  );
+
+  const playbackAction = isPlayingMusic ? pauseSpotify : resumeSpotify;
   const onClick = (): void => {
-    playbackAction(accessToken);
+    playbackAction();
     setIsPlayingMusic(!isPlayingMusic);
   };
 
   const symbol = isPlayingMusic ? SymbolOff : SymbolOn;
 
   setInterval(updatePlayState, 10000);
-
   return (
     <Presentational
       Symbol={symbol}
       onClick={onClick}
+      errorMessage={errorMessage}
     />
   );
 };
