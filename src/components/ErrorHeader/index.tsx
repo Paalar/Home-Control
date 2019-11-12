@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Presentational from './Presentational';
 import './errorHeader.scss';
