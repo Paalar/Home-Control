@@ -3,7 +3,8 @@ import './App.scss';
 import './common.scss';
 import CityBike from '../components/CityBike/index';
 import ATB from '../components/ATB/index';
-import SpotifyComponent from '../components/SpotifyComponent';
+import SpotifyRoutine from '../components/SpotifyRoutine';
+import CoffeeMachineRoutine from '../components/CoffeeMachineRoutine';
 
 const App = (): JSX.Element => (
   <div id="container">
@@ -13,12 +14,12 @@ const App = (): JSX.Element => (
     </div>
     <div id="home-control-container">
       {/* <RoutineComponent type={RoutineTypes.LightsRoutine} />
-      <RoutineComponent type={RoutineTypes.CoffeeMachineRoutine} />
       <RoutineComponent type={RoutineTypes.LivingRoomHeaterRoutine} />
       <RoutineComponent type={RoutineTypes.BedroomHeaterRoutine} />
       <RoutineComponent type={RoutineTypes.PCRoutine} />
       <RoutineComponent type={RoutineTypes.TVRoutine} /> */}
-      <SpotifyComponent />
+      <SpotifyRoutine />
+      <CoffeeMachineRoutine />
     </div>
   </div>
 );
