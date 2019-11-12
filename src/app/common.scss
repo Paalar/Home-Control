@@ -1,0 +1,78 @@
+@import "../assets/colors.scss";
+
+
+.info-container {
+  width: 45rem;
+  background-color: $primary-color;
+  padding: 20px;
+  color: white;
+
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.title {
+  margin-top: 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 5px solid white;
+}
+
+.first-box {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.second-box {
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.pane {
+  color: black;
+  background-color: white;
+  font-size: 1rem;
+  font-weight: 500;
+
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.routine-component-container {
+  height: 175px;
+  max-height: 175px;
+  width: 175px;
+  max-width: 175px;
+  background-color: $primary-color;
+
+  display: flex;
+  justify-content: center;
+}
+
+.routine-symbol-container {
+  height: 100px;
+  max-height: 100px;
+  width: 100px;
+  max-width: 100px;
+  background-color: white;
+
+  margin: auto;
+  display: flex;
+  justify-content: center;
+
+  transition: all .4s;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+
+  img {
+    width: 80%;
+  }
+}
+
+.flip {
+  transform: rotateY(180deg);
+}
+
+.routine-icon {
+  margin: auto;
+  width: 80%;
+  height: 80%;
+}
