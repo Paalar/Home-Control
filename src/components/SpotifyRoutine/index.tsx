@@ -7,7 +7,7 @@ import { ReactComponent as SymbolOff } from '../../assets/svgs/music-off.svg';
 import * as SpotifyApi from '../../api/spotify';
 import { SpotifyPlaybackResponse } from '../../interfaces/API';
 
-const SpotifyComponent: FunctionComponent = (): JSX.Element => {
+const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   const [accessToken, setAccessToken] = useState<string>('');
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
@@ -50,9 +50,8 @@ const SpotifyComponent: FunctionComponent = (): JSX.Element => {
     <Presentational
       Symbol={symbol}
       onClick={onClick}
-      name="Spotify"
     />
   );
 };
 
-export default SpotifyComponent;
+export default SpotifyRoutine;

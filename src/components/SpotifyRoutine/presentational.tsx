@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
 import { SpotifyRoutine } from '../../interfaces/Routine';
-import Modal from '../Modal';
-import { spotifyAuthorizationUrl } from '../../api/spotify';
+import SpotifyModal from './SpotifyModal';
 
 const Presentational = (props: SpotifyRoutine): JSX.Element => {
-  const {
-    Symbol, onClick, name,
-  } = props;
+  const { Symbol, onClick } = props;
 
-  // const [Symbol, setSymbol] = useState<SVG>(symbolOn);
   const [active, setActive] = useState(false);
   const [pressed, setPressed] = useState(false);
-  const [settings, setSettings] = useState({});
 
   let longPressTimer: number;
-
-  const modal = (
-    <button type="button">
-      <a href={spotifyAuthorizationUrl}>Login to Spotify</a>
-    </button>
-  );
 
   const handleClick = (): void => {
     setActive(!active);
@@ -39,29 +28,17 @@ const Presentational = (props: SpotifyRoutine): JSX.Element => {
     }
   };
 
-  const accept = () => {
+  const accept = (): void => {
     setPressed(false);
   };
 
-  const cancel = () => setPressed(false);
+  const cancel = (): void => setPressed(false);
 
-  const createModal = (): JSX.Element => (
-    <Modal
-      title="Spotify Settings"
-      settings={settings}
-      accept={accept}
-      cancel={cancel}
-    >
-      {modal}
-    </Modal>
-  );
-
-  // const closeModal = (): void => setPressed(false);
-  const displayModal = pressed ? createModal() : null;
+  const modal = <SpotifyModal accept={accept} cancel={cancel} />;
 
   return (
     <div className="routine-component-container first-box">
-      {displayModal}
+      {pressed ? modal : null}
       <div
         className={`routine-symbol-container second-box${active ? ' flip' : ''}`}
         onTouchStart={handlePress}
