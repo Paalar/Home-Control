@@ -1,8 +1,10 @@
+import { iftttKey } from './secrets';
+
 // IFTTT
-const getEventByKey = (key: string): string => (
-  `https://maker.ifttt.com/trigger/${key}/with/key/bB0Pdw4KCQTgOhEs3nCDxK`
+const getEventByKey = (event: string): string => (
+  `https://maker.ifttt.com/trigger/${event}/with/key/${iftttKey}`
 );
-const brewCoffeeKey = 'brew_coffee_2';
+const brewCoffeeKey = 'brew_coffee_for_2';
 
 export const brewCoffeeEventUrl = getEventByKey(brewCoffeeKey);
 
