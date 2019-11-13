@@ -31,7 +31,7 @@ const ATB: FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     fetchBusData();
-    setInterval(fetchBusData, 10 * 1000);
+    setInterval(fetchBusData, 60 * 1000);
   }, []);
 
 
