@@ -9,7 +9,7 @@ export const SPOTIFY_TOKEN_EXPIRATION = (): string | null => (
 );
 export const setSpotifytoken = (token: string): void => {
   localStorage.setItem(LS_SPOTIFY_TOKEN, token);
-  localStorage.setItem(LS_SPOTIFY_TOKEN_EXPIRATION, moment().add(1, 'hours').toString());
+  localStorage.setItem(LS_SPOTIFY_TOKEN_EXPIRATION, moment().add(3600, 'seconds').toString());
 };
 export const clearSpotifyStorage = (): void => {
   localStorage.removeItem(LS_SPOTIFY_TOKEN_EXPIRATION);
@@ -18,12 +18,21 @@ export const clearSpotifyStorage = (): void => {
 export const spotifyStorageExists = (): boolean => (
   !(SPOTIFY_TOKEN_EXPIRATION() === null || SPOTIFY_TOKEN_EXPIRATION() === null)
 );
-export const isSpotifyTokenExpired = (): boolean|null => {
+export const spotifyTokenExpiresIn = (): number => {
   const token = SPOTIFY_TOKEN_EXPIRATION();
   if (token !== null) {
     const tokenExpiration = moment(token);
     const currentTime = moment();
-    return tokenExpiration.diff(currentTime) < 0;
+    return tokenExpiration.diff(currentTime);
+  }
+  return -1;
+};
+export const isSpotifyTokenNotExpired = (): boolean|null => {
+  const token = SPOTIFY_TOKEN_EXPIRATION();
+  if (token !== null) {
+    const tokenExpiration = moment(token);
+    const currentTime = moment();
+    return tokenExpiration.diff(currentTime) > 0;
   }
   return null;
 };

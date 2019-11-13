@@ -15,7 +15,7 @@ export const spotifyAuthorizationUrl = `${spotifyUrl}/authorize?client_id=${spot
 
 const genericPut = (url: string): Promise<Response> => {
   const accessToken = LS.SPOTIFY_TOKEN();
-  if (accessToken === null) {
+  if (!LS.isSpotifyTokenNotExpired()) {
     throw new Error('No access token');
   }
   return fetch(url, {

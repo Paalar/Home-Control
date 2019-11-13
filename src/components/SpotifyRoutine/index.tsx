@@ -31,15 +31,11 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   useEffect(() => {
     updatePlayState();
     setInterval(() => updatePlayState(), 10000);
-
     if (WindowUtils.urlHasSpotifyAccessToken()) {
-      if (!LS.spotifyStorageExists()) {
-        const token = WindowUtils.getSpotifyAccessToken();
+      const token = WindowUtils.getSpotifyAccessToken();
+      if (token !== LS.SPOTIFY_TOKEN() && !LS.isSpotifyTokenNotExpired()) {
         LS.setSpotifytoken(token);
         setAccessToken(token);
-      }
-      if (LS.isSpotifyTokenExpired()) {
-        LS.clearSpotifyStorage();
       }
     }
   }, [accessToken, updatePlayState]);
