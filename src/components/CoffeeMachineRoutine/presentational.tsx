@@ -1,6 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
 import { SVG } from '../../interfaces/Common';
 import ErrorHeader from '../ErrorHeader';
+import CoffeeMachineModal from './coffeeMachineModal';
+import { CoffeeEvent } from '../../interfaces/IFTTT';
+import CoffeeEventContext from '../../hooks/contexts';
 
 interface Props {
   Symbol: SVG;
@@ -39,20 +42,33 @@ const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => 
     }
   };
 
+  const close = (): void => setPressed(false);
+
   const displayError = showError ? error : null;
   return (
-    <div className="routine-component-container first-box">
-      {displayError}
-      <div
-        className={`routine-symbol-container second-box${active ? ' flip' : ''}`}
-        onTouchStart={handlePress}
-        onTouchEnd={handleLeave}
-        onMouseDown={handlePress}
-        onMouseUp={handleLeave}
-      >
-        <Symbol className="routine-icon" />
-      </div>
-    </div>
+    <CoffeeEventContext.Consumer>
+      {(contextEvent): JSX.Element => {
+        const modal = (event: CoffeeEvent): JSX.Element => (
+          <CoffeeMachineModal event={event} close={close} />
+        );
+        return (
+          <div className="routine-component-container first-box">
+            {pressed ? modal({ name: contextEvent.name, key: contextEvent.key }) : null}
+            {displayError}
+            <div
+              className={`routine-symbol-container second-box${active ? ' flip' : ''}`}
+              onTouchStart={handlePress}
+              onTouchEnd={handleLeave}
+              onMouseDown={handlePress}
+              onMouseUp={handleLeave}
+            >
+              <Symbol className="routine-icon" />
+            </div>
+            <p className="routine-status">{`Status: ${contextEvent.name}`}</p>
+          </div>
+        );
+      }}
+    </CoffeeEventContext.Consumer>
   );
 };
 
