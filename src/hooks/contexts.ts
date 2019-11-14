@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext } from 'react';
 import Events from '../constants/iftttEvents';
 import { CoffeeEvent } from '../interfaces/IFTTT';

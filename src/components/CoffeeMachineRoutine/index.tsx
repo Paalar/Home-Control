@@ -7,7 +7,6 @@ import * as Events from '../../constants/iftttEvents';
 import CoffeeEventContext, { initialEvent } from '../../hooks/contexts';
 import { CoffeeEvent } from '../../interfaces/IFTTT';
 
-
 const TIMEOUT = (key: string): number => (
   key === Events.brewFor1.key
     ? 5 * 1000 * 60
