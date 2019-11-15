@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import * as RoutineApi from '../constants/routineApi';
 import { spotifyClientId } from '../constants/secrets';
 import { SpotifyPlaybackResponse } from '../interfaces/API';
@@ -36,12 +35,12 @@ const genericGet = (url: string): Promise<Response> => {
   });
 };
 
-const setErrorMessage = (message: string, setError: Dispatch<SetStateAction<string>>): void => {
+const setErrorMessage = (message: string, setError: (message: string) => void): void => {
   setError(message);
   setInterval(() => setError(''), 5000);
 };
 
-export const pauseSpotify = (setError: Dispatch<SetStateAction<string>>):
+export const pauseSpotify = (setError: (message: string) => void):
 Promise<Response> | null => {
   try {
     return genericPut(RoutineApi.spotifyPauseUrl)
@@ -58,7 +57,7 @@ Promise<Response> | null => {
   }
 };
 
-export const resumeSpotify = (setError: Dispatch<SetStateAction<string>>):
+export const resumeSpotify = (setError: (message: string) => void):
 Promise<Response> | null => {
   try {
     return genericPut(RoutineApi.spotifyResumeUrl)
