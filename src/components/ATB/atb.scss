@@ -9,4 +9,8 @@
 .bus-pane {
   display: flex;
   justify-content: space-between;
+
+  p:first-child {
+    margin-right: 1rem;
+  }
 }
