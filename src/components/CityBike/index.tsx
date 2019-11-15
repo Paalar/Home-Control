@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Presentational from './presentational';
 import { fetchCityBikeStations, fetchCityBikeStationStatuses } from '../../api/cityBike';
-import ICityBike, { Station, StationStatus } from '../../interfaces/CityBikeInterfaces';
+import ICityBike, { Station, StationStatus } from '../../interfaces/CityBike';
 import './cityBike.scss';
 
 const EACH_HOUR = 60000;
@@ -49,6 +49,7 @@ const CityBike = (): JSX.Element => {
 
   useEffect(() => {
     fetchStations();
+    setInterval(fetchStations, EACH_HOUR);
   }, []);
 
   if (stations.length === 0 || stationStatus.length === 0) {
@@ -58,8 +59,6 @@ const CityBike = (): JSX.Element => {
   const filteredStations = filterUnusedStations(stations);
   const filteredStatuses = filterUnusedStatuses(filteredStations, stationStatus);
   const mergedData = mergeStationData(filteredStations, filteredStatuses);
-
-  setInterval(fetchStations, EACH_HOUR);
 
   return (
     <Presentational stations={mergedData} />

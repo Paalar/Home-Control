@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import ICityBike from '../../interfaces/CityBikeInterfaces';
+import ICityBike from '../../interfaces/CityBike';
 import CityBikePane from './CityBikePane';
 import { ReactComponent as BicycleSymbol } from '../../assets/svgs/bicycle.svg';
 
