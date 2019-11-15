@@ -13,7 +13,9 @@ interface Props {
 }
 
 const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const { modalCreator, symbol, handleClick } = props;
+  const {
+    modalCreator, symbol, handleClick, status,
+  } = props;
   const [active, setActive] = useState(false);
   const [pressed, setPressed] = useState(false);
   let longPressTimer: number;
@@ -39,6 +41,7 @@ const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element =
       modal={pressed ? modal : undefined}
       active={active}
       symbol={symbol}
+      status={status}
     />
   );
 };

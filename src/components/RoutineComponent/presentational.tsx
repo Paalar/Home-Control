@@ -11,7 +11,7 @@ interface Props {
 
 const Presentational = (props: Props): JSX.Element => {
   const {
-    modal, active, symbol, handleLeave, handlePress,
+    modal, active, symbol, handleLeave, handlePress, status,
   } = props;
 
   return (
@@ -26,6 +26,7 @@ const Presentational = (props: Props): JSX.Element => {
       >
         {symbol}
       </div>
+      {status}
     </div>
   );
 };
