@@ -1,11 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
 import Presentational from './presentational';
 
+export const createStatus = (statusMessage: string): JSX.Element => (
+  <p className="routine-status">{`Status: ${statusMessage}`}</p>
+);
+
 interface Props {
   modalCreator: (close: () => void) => JSX.Element;
   symbol: JSX.Element;
   status?: JSX.Element;
-  handleClick: () => void;
+  handleClick: () => boolean|Promise<boolean>;
 }
 
 const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element => {
@@ -18,11 +22,10 @@ const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element =
     longPressTimer = setTimeout(() => setPressed(true), 500);
   };
 
-  const handleLeave = (): void => {
+  const handleLeave = async (): Promise<void> => {
     clearTimeout(longPressTimer);
-    if (!pressed) {
+    if (!pressed && await handleClick()) {
       setActive(!active);
-      handleClick();
     }
   };
 

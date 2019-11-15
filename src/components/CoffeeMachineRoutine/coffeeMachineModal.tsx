@@ -27,35 +27,20 @@ const CoffeeMachineModal: FunctionComponent<Props> = (props: Props): JSX.Element
           contextEvent.setNewEvent(newEvent);
           close();
         };
+        const selector = (
+          <select
+            onChange={handleChange}
+            value={newEvent.key}
+          >
+            {eventSelector}
+          </select>
+        );
         return (
-          <Modal>
-            <>
-              <h1 className="title">Coffee Machine Settings</h1>
-              <div>
-                <select
-                  onChange={handleChange}
-                  value={newEvent.key}
-                >
-                  {eventSelector}
-                </select>
-              </div>
-              <div id="modal-buttons">
-                <button
-                  type="button"
-                  id="modal-accept"
-                  onClick={onAccept}
-                >
-                  Accept
-                </button>
-                <button
-                  type="button"
-                  id="modal-cancel"
-                  onClick={close}
-                >
-                  Cancel
-                </button>
-              </div>
-            </>
+          <Modal
+            accept={onAccept}
+            close={close}
+          >
+            {selector}
           </Modal>
         );
       }}

@@ -4,14 +4,14 @@ import { SVG } from '../../interfaces/Common';
 
 interface Props {
   Symbol: SVG;
-  onClick: () => void;
+  handleClick: () => Promise<boolean>;
   error?: JSX.Element;
   modalCreator: (close: () => void) => JSX.Element;
 }
 
 const Presentational = (props: Props): JSX.Element => {
   const {
-    Symbol, onClick, error, modalCreator,
+    Symbol, handleClick, error, modalCreator,
   } = props;
 
   const symbol = <Symbol className="routine-icon" />;
@@ -19,7 +19,7 @@ const Presentational = (props: Props): JSX.Element => {
   return (
     <>
       <RoutineComponent
-        handleClick={onClick}
+        handleClick={handleClick}
         modalCreator={modalCreator}
         symbol={symbol}
       />

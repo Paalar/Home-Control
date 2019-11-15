@@ -50,13 +50,28 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
     }
   }, [accessToken, updatePlayState]);
 
-  const onClick = (): void => {
+  const handleSpotifyRequest = async (): Promise<boolean> => {
+    let promise;
+    let result: boolean;
+
     if (isPlayingMusic) {
-      SpotifyApi.pauseSpotify(updateErrorMessage);
+      promise = SpotifyApi.pauseSpotify(updateErrorMessage);
     } else {
-      SpotifyApi.resumeSpotify(updateErrorMessage);
+      promise = SpotifyApi.resumeSpotify(updateErrorMessage);
     }
-    setIsPlayingMusic(!isPlayingMusic);
+    if (promise !== null) {
+      result = await promise.then((response) => response.ok);
+    } else {
+      result = false;
+    }
+
+    return result;
+  };
+
+  const handleClick = async (): Promise<boolean> => {
+    const result = await handleSpotifyRequest();
+    if (result) setIsPlayingMusic(!isPlayingMusic);
+    return result;
   };
 
   const errorHeader = <ErrorHeader errorMessage={errorMessage} />;
@@ -64,7 +79,7 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   return (
     <Presentational
       Symbol={isPlayingMusic ? SymbolOff : SymbolOn}
-      onClick={onClick}
+      handleClick={handleClick}
       error={error}
       modalCreator={modalCreator}
     />
