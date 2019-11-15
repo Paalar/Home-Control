@@ -13,6 +13,12 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const updateErrorMessage = (message: string): void => {
+    if (errorMessage.length === 0) {
+      setErrorMessage(message);
+    }
+  };
+
   const updatePlayState = useCallback(
     () => {
       if (accessToken !== null) {
@@ -40,8 +46,8 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
     }
   }, [accessToken, updatePlayState]);
 
-  const resumeSpotify = (): Promise<Response> | null => SpotifyApi.resumeSpotify(setErrorMessage);
-  const pauseSpotify = (): Promise<Response> | null => SpotifyApi.pauseSpotify(setErrorMessage);
+  const resumeSpotify = (): Promise<Response>|null => SpotifyApi.resumeSpotify(updateErrorMessage);
+  const pauseSpotify = (): Promise<Response>|null => SpotifyApi.pauseSpotify(updateErrorMessage);
 
   const playbackAction = isPlayingMusic ? pauseSpotify : resumeSpotify;
   const onClick = (): void => {

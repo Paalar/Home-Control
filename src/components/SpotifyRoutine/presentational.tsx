@@ -1,58 +1,40 @@
-import React, { useState } from 'react';
-import { SpotifyRoutine } from '../../interfaces/Routine';
+import React from 'react';
 import SpotifyModal from './SpotifyModal';
 import ErrorHeader from '../ErrorHeader';
+import RoutineComponent from '../RoutineComponent';
+import { SVG } from '../../interfaces/Common';
 
-const Presentational = (props: SpotifyRoutine): JSX.Element => {
+interface Props {
+  Symbol: SVG;
+  onClick: (() => void) | null;
+  errorMessage: string;
+}
+
+const Presentational = (props: Props): JSX.Element => {
   const { Symbol, onClick, errorMessage } = props;
-  const [active, setActive] = useState(false);
-  const [pressed, setPressed] = useState(false);
-  let longPressTimer: number;
+
   const error = <ErrorHeader errorMessage={errorMessage} />;
 
   const handleClick = (): void => {
     if (onClick !== null) {
-      setActive(!active);
       onClick();
     }
   };
 
-  const handlePress = (): void => {
-    longPressTimer = setTimeout(() => {
-      setPressed(true);
-    }, 500);
-  };
+  const modal = (cancel: () => void): JSX.Element => (
+    <SpotifyModal close={cancel} />
+  );
 
-  const handleLeave = (): void => {
-    clearTimeout(longPressTimer);
-    if (!pressed) {
-      handleClick();
-    }
-  };
-
-  const accept = (): void => {
-    setPressed(false);
-  };
-
-  const cancel = (): void => setPressed(false);
-
-  const modal = <SpotifyModal accept={accept} cancel={cancel} />;
   const displayError = errorMessage.length > 0 ? error : null;
+  const symbol = <Symbol className="routine-icon" />;
 
   return (
-    <div className="routine-component-container first-box">
-      {pressed ? modal : null}
-      {displayError}
-      <div
-        className={`routine-symbol-container second-box${active ? ' flip' : ''}`}
-        onTouchStart={handlePress}
-        onTouchEnd={handleLeave}
-        onMouseDown={handlePress}
-        onMouseUp={handleLeave}
-      >
-        <Symbol className="routine-icon" />
-      </div>
-    </div>
+    <RoutineComponent
+      handleClick={handleClick}
+      modalCreator={modal}
+      symbol={symbol}
+      error={displayError ? error : undefined}
+    />
   );
 };
 
