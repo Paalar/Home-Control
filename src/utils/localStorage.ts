@@ -27,7 +27,7 @@ export const spotifyTokenExpiresIn = (): number => {
   }
   return -1;
 };
-export const isSpotifyTokenNotExpired = (): boolean|null => {
+export const isSpotifyTokenAlive = (): boolean|null => {
   const token = SPOTIFY_TOKEN_EXPIRATION();
   if (token !== null) {
     const tokenExpiration = moment(token);

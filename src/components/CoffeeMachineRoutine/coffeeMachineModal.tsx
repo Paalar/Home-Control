@@ -10,7 +10,7 @@ interface Props {
 }
 
 const eventSelector = (
-  Events.map((event) => <option value={event.key}>{event.name}</option>)
+  Events.map((event) => <option key={event.key} value={event.key}>{event.name}</option>)
 );
 
 const CoffeeMachineModal: FunctionComponent<Props> = (props: Props): JSX.Element => {

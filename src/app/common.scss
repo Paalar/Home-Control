@@ -1,8 +1,8 @@
 @import "../assets/colors.scss";
-
+@import "../assets/common.scss";
 
 .info-container {
-  width: 45rem;
+  // width: 45rem;
   background-color: $primary-color;
   padding: 20px;
   color: white;
@@ -10,12 +10,19 @@
   :last-child {
     margin-bottom: 0;
   }
+  @media only screen and (max-height: $small-device-height) {
+    padding: 10px;
+  }
 }
 
 .title {
   margin-top: 0;
   padding-bottom: 0.4rem;
   border-bottom: 5px solid white;
+  @media only screen and (max-height: $small-device-height) {
+    padding-bottom: 0.1rem;
+    margin-bottom: 0.3rem;
+  }
 }
 
 .first-box {
@@ -34,6 +41,10 @@
 
   padding: 0.5rem;
   margin-bottom: 1rem;
+  @media only screen and (max-height: $small-device-height) {
+    padding: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .routine-component-container {

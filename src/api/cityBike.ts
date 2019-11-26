@@ -1,10 +1,10 @@
 import { StationsResponse, StationStatusesResponse } from '../interfaces/API';
 
-const cityBikeStationsUrl = 'https://gbfs.urbansharing.com/trondheimbysykkel.no/station_information.json';
-const cityBikeStationStatusUrl = 'https://gbfs.urbansharing.com/trondheimbysykkel.no/station_status.json';
+const BIKE_STATION_URL = 'https://gbfs.urbansharing.com/trondheimbysykkel.no/station_information.json';
+const BIKE_STATION_STATUS_URL = 'https://gbfs.urbansharing.com/trondheimbysykkel.no/station_status.json';
 
 export const fetchCityBikeStations = (): Promise<StationsResponse> => (
-  fetch(cityBikeStationsUrl)
+  fetch(BIKE_STATION_URL)
     .then((response) => {
       if (!response.ok) {
         console.log(response.status);
@@ -19,7 +19,7 @@ export const fetchCityBikeStations = (): Promise<StationsResponse> => (
 );
 
 export const fetchCityBikeStationStatuses = (): Promise<StationStatusesResponse> => (
-  fetch(cityBikeStationStatusUrl)
+  fetch(BIKE_STATION_STATUS_URL)
     .then((response) => {
       if (!response.ok) {
         console.log(response.status);

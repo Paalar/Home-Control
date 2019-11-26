@@ -32,7 +32,7 @@ const CoffeeMachineRoutine: FunctionComponent = (): JSX.Element => {
 
   const startBrewing = (): void => {
     const url = IFTTApi.ifttEvent(event.key);
-    // IFTTApi.startEvent(url);
+    IFTTApi.startEvent(url);
     console.log(`Brewing! ${event.name}`);
     setIsBrewing(true);
     setTimeout(() => {

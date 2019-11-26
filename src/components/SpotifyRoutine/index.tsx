@@ -25,7 +25,7 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
 
   const updatePlayState = useCallback(
     () => {
-      if (accessToken !== null) {
+      if (LS.isSpotifyTokenAlive()) {
         SpotifyApi.getPlaybackState()
           .then((response) => {
             if (response != null) {
@@ -35,7 +35,7 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
           .catch((error) => console.log(error));
       }
     },
-    [accessToken],
+    [],
   );
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
     setInterval(() => updatePlayState(), 10000);
     if (WindowUtils.urlHasSpotifyAccessToken()) {
       const token = WindowUtils.getSpotifyAccessToken();
-      if (token !== LS.SPOTIFY_TOKEN() && !LS.isSpotifyTokenNotExpired()) {
+      if (token !== LS.SPOTIFY_TOKEN() && !LS.isSpotifyTokenAlive()) {
         LS.setSpotifytoken(token);
         setAccessToken(token);
       }
@@ -51,21 +51,14 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   }, [accessToken, updatePlayState]);
 
   const handleSpotifyRequest = async (): Promise<boolean> => {
-    let promise;
-    let result: boolean;
+    let promise: Response;
 
     if (isPlayingMusic) {
-      promise = SpotifyApi.pauseSpotify(updateErrorMessage);
+      promise = await SpotifyApi.pauseSpotify(updateErrorMessage);
     } else {
-      promise = SpotifyApi.resumeSpotify(updateErrorMessage);
+      promise = await SpotifyApi.resumeSpotify(updateErrorMessage);
     }
-    if (promise !== null) {
-      result = await promise.then((response) => response.ok);
-    } else {
-      result = false;
-    }
-
-    return result;
+    return promise.ok;
   };
 
   const handleClick = async (): Promise<boolean> => {

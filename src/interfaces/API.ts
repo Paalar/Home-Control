@@ -34,3 +34,30 @@ export interface SpotifyPlaybackResponse {
   device: SpotifyDevice;
   is_playing: boolean;
 }
+
+// Weather
+export interface TimeForecast {
+  location: {
+    areaMaxWindSpeed: { _attributes: { mps: string } };
+    cloudiness: { _attributes: { id: string; percent: string }};
+    dewpointTemperature: { _attributes: { id: string; unit: string; value: string } };
+    fog: { _attributes: { _attributes: { id: string; percent: string } } };
+    highClouds: { _attributes: { id: string; percent: string } };
+    humidity: { _attributes: { unit: string; value: string } };
+    lowClouds: { _attributes: { id: string; percent: string } };
+    mediumClouds: { _attributes: { id: string; percent: string } };
+    pressure: { _attributes: { id: string; unit: string; value: string } };
+    temperature: { _attributes: { id: string; unit: string; value: string } };
+    windDirection: { _attributes: { deg: string; id: string; name: string } };
+    windGust: { _attributes: { id: string; mps: string } };
+    windSpeed: { _attributes: { beaufort: string; id: string; mps: string; name: string } };
+  };
+}
+
+export interface METWeatherResponse {
+  weatherdata: {
+    product: {
+      time: TimeForecast[];
+    };
+  };
+}

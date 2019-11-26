@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Presentational from './Presentational';
 import './errorHeader.scss';
@@ -7,27 +7,43 @@ interface Props {
   errorMessage: string;
 }
 
-const errorRoot = document.getElementById('error-root');
 
 const ErrorHeader: FunctionComponent<Props> = (props: Props): JSX.Element => {
   const { errorMessage } = props;
+  const errorRoot = document.getElementById('error-root');
   const container = document.createElement('div');
   container.setAttribute('class', 'error-container');
-
-  const errorHeader = (
-    <Presentational errorMessage={errorMessage} />
-  );
+  container.addEventListener('click', () => {
+    if (errorRoot !== null) {
+      errorRoot.hidden = true;
+      console.log(errorRoot.hidden);
+    }
+  });
 
   useEffect(() => {
     if (errorRoot !== null) {
       errorRoot.appendChild(container);
+
+      if (errorRoot.hidden) {
+        errorRoot.removeChild(container);
+        errorRoot.hidden = false;
+      }
     }
     return (): void => {
       if (errorRoot !== null) {
-        errorRoot.removeChild(container);
+        try {
+          errorRoot.removeChild(container);
+          errorRoot.hidden = false;
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
-  }, [container]);
+  }, [container, errorRoot]);
+
+  const errorHeader = (
+    <Presentational errorMessage={errorMessage} />
+  );
 
   return (
     createPortal(
