@@ -18,7 +18,7 @@ const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element =
   } = props;
   const [active, setActive] = useState(false);
   const [pressed, setPressed] = useState(false);
-  let longPressTimer: number;
+  let longPressTimer: any;
 
   const handlePress = (): void => {
     longPressTimer = setTimeout(() => setPressed(true), 500);

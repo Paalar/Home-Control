@@ -1,4 +1,4 @@
-export interface CityBikeStations {
+interface CityBikeStations {
   stations: Station[];
 }
 
@@ -21,12 +21,37 @@ export interface StationStatus {
   num_docks_available: number;
 }
 
-export interface CityBike {
+interface CityBike {
   station_id: string;
   num_bikes_available: number;
   capacity: number;
   name: string;
   address: string;
 }
+
+interface CityBikeResponse {
+  ttl: number;
+  last_updated: number;
+}
+
+export interface StationResponse extends CityBikeResponse {
+  data: {
+    stations: Station[];
+  };
+}
+
+export const isStationResponse = (response: any): response is StationResponse => (
+  response.data && response.data.stations.length >= 0
+);
+
+export interface StationStatusResponse extends CityBikeResponse {
+  data: {
+    stations: StationStatus[];
+  };
+}
+
+export const isStationStatusResponse = (
+  response: any,
+): response is StationStatusResponse => response.data && response.data.stations.length >= 0;
 
 export default CityBike;

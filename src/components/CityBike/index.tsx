@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Presentational from './presentational';
-import { fetchCityBikeStations, fetchCityBikeStationStatuses } from '../../api/cityBike';
-import ICityBike, { Station, StationStatus } from '../../interfaces/CityBike';
+import useFetch, { BIKE_STATION_STATUS_URL, BIKE_STATION_URL} from '../../hooks/useFetch';
+import ICityBike, {
+  Station,
+  StationStatus,
+  isStationResponse,
+  isStationStatusResponse,
+} from '../../interfaces/CityBike';
 import './cityBike.scss';
 
 const EACH_HOUR = 60000;
@@ -39,18 +44,21 @@ const mergeStationData = (
 const CityBike = (): JSX.Element => {
   const [stations, setStations] = useState<Station[]>([]);
   const [stationStatus, setStationStatus] = useState<StationStatus[]>([]);
-
-  const fetchStations = (): void => {
-    fetchCityBikeStations()
-      .then((result) => setStations(result.data.stations));
-    fetchCityBikeStationStatuses()
-      .then((result) => setStationStatus(result.data.stations));
-  };
+  const [stationResponse, stationIsLoading, stationHasError] = useFetch(BIKE_STATION_URL, {});
+  const [statusResponse, statusIsLoading, statusHasError] = useFetch(BIKE_STATION_STATUS_URL, {});
 
   useEffect(() => {
+    const fetchStations = (): void => {
+      if (statusResponse && isStationStatusResponse(statusResponse)) {
+        setStationStatus(statusResponse.data.stations);
+      }
+      if (stationResponse && isStationResponse(stationResponse)) {
+        setStations(stationResponse.data.stations);
+      }
+    };
     fetchStations();
     setInterval(fetchStations, EACH_HOUR);
-  }, []);
+  }, [stationResponse, statusResponse]);
 
   if (stations.length === 0 || stationStatus.length === 0) {
     return <></>;
