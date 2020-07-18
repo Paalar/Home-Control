@@ -9,7 +9,6 @@ import ICityBike, {
   StationStatus,
 } from '../../interfaces/CityBike';
 import { useFetchStations, useFetchStationStatuses } from '../../hooks/cityBike';
-import './cityBike.scss';
 
 const wantedStations = ['Dokkparken', 'Thornesparken', 'Bakke bru'];
 

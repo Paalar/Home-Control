@@ -21,7 +21,7 @@ const createCityBikePanes = (stations: ICityBike[]): JSX.Element[] => (
 const Presentational: FunctionComponent<Props> = ({ stations }: Props): JSX.Element => {
   const cityBikePanes = createCityBikePanes(stations);
   return (
-    <div id="city-bike-container" className="info-container first-box">
+    <div className="city-bike__wrapper info-container first-box">
       <h1 className="title">
         Bysykkel
         <BicycleSymbol
