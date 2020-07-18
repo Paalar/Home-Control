@@ -7,7 +7,7 @@ import SpotifyRoutine from '../components/SpotifyRoutine';
 import CoffeeMachineRoutine from '../components/CoffeeMachineRoutine';
 
 const App = (): JSX.Element => (
-  <div id="container">
+  <>
     <div id="information-container">
       <CityBike />
       <ATB />
@@ -21,7 +21,7 @@ const App = (): JSX.Element => (
       <SpotifyRoutine />
       <CoffeeMachineRoutine />
     </div>
-  </div>
+  </>
 );
 
 export default App;

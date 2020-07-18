@@ -5,22 +5,16 @@ p {
 }
 
 #root {
-  width: 95%;
-  height: 90%;
+  width: 95vw;
+  height: 90vh;
   margin: auto;
-  @media only screen and (max-height: $small-device-height) {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-#container {
-  height: 100%;
-  display: flex;
-  flex-direction: row;
   display: grid;
   grid-template-columns: 65% 35%;
   grid-template-rows: 100%;
+  @media only screen and (max-height: $small-device-height) {
+    width: 97vw;
+    height: 95vh;
+  }
 }
 
 #information-container {
@@ -43,11 +37,13 @@ p {
   margin-top: 1rem;
   grid-column: 1 / span 5;
   grid-row: 3 / span 3;
+  align-self: flex-end;
 }
 
 #home-control-container {
   width: 100%;
-  display: grid;
-  grid-template-columns: auto auto auto;
+  max-height: 100%;
+  display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }

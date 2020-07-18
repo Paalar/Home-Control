@@ -1,4 +1,5 @@
 import React from 'react';
+import './routineComponent.scss';
 
 interface Props {
   modal?: JSX.Element;

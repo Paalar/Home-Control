@@ -3,6 +3,7 @@
 $small-device-height: 600px;
 
 .info-container {
+  height: min-content;
   background-color: $primary-color;
   padding: 20px;
   color: white;
@@ -67,54 +68,6 @@ $small-device-height: 600px;
     justify-content: center;
     white-space: nowrap;
   }
-}
-
-.routine-component-container {
-  height: 175px;
-  max-height: 175px;
-  width: 175px;
-  max-width: 175px;
-  background-color: $primary-color;
-
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-.routine-symbol-container {
-  height: 100px;
-  max-height: 100px;
-  width: 100px;
-  max-width: 100px;
-  background-color: white;
-
-  margin: auto;
-  display: flex;
-  justify-content: center;
-
-  transition: all .4s;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-
-  img {
-    width: 80%;
-  }
-}
-
-.routine-status {
-  color: white;
-  position: absolute;
-  bottom: 0.5rem;
-}
-
-.flip {
-  transform: rotateY(180deg);
-}
-
-.routine-icon {
-  margin: auto;
-  width: 80%;
-  height: 80%;
 }
 
 button {
