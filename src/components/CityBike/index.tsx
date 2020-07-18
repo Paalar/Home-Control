@@ -1,8 +1,6 @@
 import React from 'react';
 import Presentational from './presentational';
 import {
-  useFetchStations,
-  useFetchStationStatuses,
   StationState,
   StationStatusState,
 } from '../../hooks/fetch';
@@ -10,6 +8,7 @@ import ICityBike, {
   Station,
   StationStatus,
 } from '../../interfaces/CityBike';
+import { useFetchStations, useFetchStationStatuses } from '../../hooks/cityBike';
 import './cityBike.scss';
 
 const wantedStations = ['Dokkparken', 'Thornesparken', 'Bakke bru'];
