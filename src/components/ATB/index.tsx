@@ -34,7 +34,6 @@ const ATB: FunctionComponent = (): JSX.Element => {
     setInterval(fetchBusData, 60 * 1000);
   }, []);
 
-
   return (
     <Presentational
       departuresFromCityCenter={departuesFromCityCenter}

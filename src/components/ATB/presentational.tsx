@@ -23,7 +23,7 @@ const createBusPanes = (departures: EstimatedCall[], currentTime: moment.Moment)
 const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => {
   const { departuresFromCityCenter, departuresToCityCenter, currentTime } = props;
   return (
-    <div id="atb-container" className="info-container first-box">
+    <div className="atb__wrapper info-container first-box">
       <h1 className="title">
         ATB - Bakkegata
         <BusSymbol style={{
@@ -35,14 +35,14 @@ const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => 
         }}
         />
       </h1>
-      <div id="departures-container">
-        <div id="departures-to-city">
+      <div className="departures__wrapper">
+        <div className="departures">
           <h3 className="title">
             Til sentrum
           </h3>
           {createBusPanes(departuresToCityCenter, currentTime)}
         </div>
-        <div id="departures-from-city">
+        <div className="departures">
           <h3 className="title">
             Fra sentrum
           </h3>

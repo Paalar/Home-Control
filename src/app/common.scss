@@ -3,17 +3,16 @@
 $small-device-height: 600px;
 
 .info-container {
-  // width: 45rem;
   background-color: $primary-color;
   padding: 20px;
   color: white;
-
-  :last-child {
-    margin-bottom: 0;
-  }
   @media only screen and (max-height: $small-device-height) {
     padding: 10px;
   }
+}
+
+.info-container:last-child {
+  margin-bottom: 0;
 }
 
 .title {
@@ -58,7 +57,6 @@ $small-device-height: 600px;
   justify-content: space-between;
 
   .text-pane__description {
-    max-width: 70%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -67,6 +65,7 @@ $small-device-height: 600px;
   .text-pane__value {
     display: flex;
     justify-content: center;
+    white-space: nowrap;
   }
 }
 

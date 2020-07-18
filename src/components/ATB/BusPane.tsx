@@ -15,13 +15,13 @@ const BusPane: FunctionComponent<Props> = (props: Props): JSX.Element => {
     return (<></>);
   }
   return (
-    <div className="bus-pane pane second-box">
-      <p>
+    <div className="bus-pane text-pane second-box">
+      <p className="text-pane__description">
         {departure.serviceJourney.journeyPattern.line.publicCode}
         {` ${'-'} `}
         {departure.destinationDisplay.frontText}
       </p>
-      <p>
+      <p className="text-pane__value">
         {minutesLeft <= 0 ? 'Nå' : `${minutesLeft} min.`}
       </p>
     </div>
