@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Presentational from './presentational';
-import useFetch, { BIKE_STATION_STATUS_URL, BIKE_STATION_URL} from '../../hooks/useFetch';
+import {
+  useFetchStations,
+  useFetchStationStatuses,
+  StationState,
+  StationStatusState,
+} from '../../hooks/fetch';
 import ICityBike, {
   Station,
   StationStatus,
-  isStationResponse,
-  isStationStatusResponse,
 } from '../../interfaces/CityBike';
 import './cityBike.scss';
 
-const EACH_HOUR = 60000;
+const wantedStations = ['Dokkparken', 'Thornesparken', 'Bakke bru'];
 
 const filterUnusedStations = (stations: Station[]): Station[] => (
-  stations.filter((station) => (
-    station.name === 'Dokkparken'
-    || station.name === 'Thornesparken '
-    || station.name === 'Bakke bru'
-  ))
+  stations.filter((station) => (wantedStations.includes(station.name.trimEnd())))
 );
 
 const filterUnusedStatuses = (
@@ -41,31 +40,25 @@ const mergeStationData = (
   }))
 );
 
+const nonEmptyResponse = (
+  stationResponse: StationState, statusResponse: StationStatusState,
+): boolean => (
+  !stationResponse
+  || !stationResponse.data.stations.length
+  || !statusResponse
+  || !statusResponse.data.stations.length
+);
+
 const CityBike = (): JSX.Element => {
-  const [stations, setStations] = useState<Station[]>([]);
-  const [stationStatus, setStationStatus] = useState<StationStatus[]>([]);
-  const [stationResponse, stationIsLoading, stationHasError] = useFetch(BIKE_STATION_URL, {});
-  const [statusResponse, statusIsLoading, statusHasError] = useFetch(BIKE_STATION_STATUS_URL, {});
+  const [stationResponse] = useFetchStations();
+  const [statusResponse] = useFetchStationStatuses();
 
-  useEffect(() => {
-    const fetchStations = (): void => {
-      if (statusResponse && isStationStatusResponse(statusResponse)) {
-        setStationStatus(statusResponse.data.stations);
-      }
-      if (stationResponse && isStationResponse(stationResponse)) {
-        setStations(stationResponse.data.stations);
-      }
-    };
-    fetchStations();
-    setInterval(fetchStations, EACH_HOUR);
-  }, [stationResponse, statusResponse]);
-
-  if (stations.length === 0 || stationStatus.length === 0) {
-    return <></>;
+  if (nonEmptyResponse(stationResponse, statusResponse)) {
+    return <Presentational stations={[]} />;
   }
 
-  const filteredStations = filterUnusedStations(stations);
-  const filteredStatuses = filterUnusedStatuses(filteredStations, stationStatus);
+  const filteredStations = filterUnusedStations(stationResponse!.data.stations);
+  const filteredStatuses = filterUnusedStatuses(filteredStations, statusResponse!.data.stations);
   const mergedData = mergeStationData(filteredStations, filteredStatuses);
 
   return (
