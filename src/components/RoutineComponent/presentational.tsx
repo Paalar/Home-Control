@@ -41,7 +41,9 @@ const Presentational: FunctionComponent<Props> = (props: Props) => {
         onMouseDown={handlePress}
         onMouseUp={handleLeave}
       >
-        <div className="icon__wrapper" style={style}>{symbol}</div>
+        <div className="icon__wrapper" style={style}>
+          {symbol}
+        </div>
       </div>
       <StatusMessage status={status} />
     </div>
