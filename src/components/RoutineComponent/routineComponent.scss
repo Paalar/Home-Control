@@ -14,7 +14,6 @@ $symbolSize: 75px;
 .routine-component-container {
   @include setSize($containerSize);
   background-color: $primary-color;
-
   display: flex;
   justify-content: center;
   position: relative;

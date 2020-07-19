@@ -62,22 +62,8 @@ $small-device-height: 600px;
   overflow: hidden;
 
   .text-pane__description {
-    white-space: nowrap;
-    overflow: hidden;
     width: 70%;
     max-width: 70%;
-
-    .overflowing {
-      animation: linear overflow-text 10s infinite running;
-      @include keyframes(overflow-text) {
-        from {
-          margin-left: 100%;
-        }
-        to {
-          margin-left: -200%;
-        }
-      }
-    }
   }
 
   .text-pane__value {
@@ -86,7 +72,7 @@ $small-device-height: 600px;
     white-space: nowrap;
     align-items: center;
   }
-}g
+}
 
 button {
   text-transform: uppercase;

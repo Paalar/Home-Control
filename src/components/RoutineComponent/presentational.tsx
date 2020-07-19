@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import OverflowingText from '../OverflowingText';
 import './routineComponent.scss';
 
 interface Props {
@@ -33,7 +34,6 @@ const Presentational: FunctionComponent<Props> = (props: Props) => {
   const flip = { transform: 'rotateY(0deg)' };
   const flipBack = { transform: 'rotateY(360deg)' };
   const style = isActive ? flip : flipBack;
-  const statusComponent = <p className="routine-status">{`Status: ${status}`}</p>;
 
   return (
     <div className="routine-component-container first-box">
@@ -53,7 +53,9 @@ const Presentational: FunctionComponent<Props> = (props: Props) => {
         </div>
       </div>
       <CreateComponent condition={status}>
-        {statusComponent}
+        <OverflowingText className="routine-status">
+          <p>{`Status: ${status}`}</p>
+        </OverflowingText>
       </CreateComponent>
     </div>
   );
