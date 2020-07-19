@@ -1,44 +1,51 @@
 import React, { FunctionComponent, useState } from 'react';
 import Presentational from './presentational';
 
+export type ModalCreator = (onClose: () => void) => JSX.Element
+
 interface Props {
-  modalCreator: (close: () => void) => JSX.Element;
-  symbol: JSX.Element;
-  status?: string;
-  handleClick: () => boolean|Promise<boolean>;
+  status?: string
+  handleClick: () => boolean | Promise<boolean>
+  modalCreator: ModalCreator
+  children: JSX.Element
 }
 
 const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element => {
   const {
-    modalCreator, symbol, handleClick, status,
+    children,
+    status,
+    handleClick,
+    modalCreator,
   } = props;
   const [isActive, setActive] = useState(false);
-  const [pressed, setPressed] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
   let longPressTimer: ReturnType<typeof setTimeout>;
 
   const handlePress = (): void => {
-    longPressTimer = setTimeout(() => setPressed(true), 500);
+    longPressTimer = setTimeout(() => setIsPressed(true), 500);
   };
 
   const handleLeave = async (): Promise<void> => {
     clearTimeout(longPressTimer);
-    if (!pressed && await handleClick()) {
+    if (!isPressed && await handleClick()) {
       setActive(!isActive);
     }
   };
 
-  const close = (): void => setPressed(false);
+  const onClose = (): void => setIsPressed(false);
+  const modal = modalCreator(onClose);
 
-  const modal = modalCreator(close);
   return (
     <Presentational
       handleLeave={handleLeave}
       handlePress={handlePress}
-      modal={pressed ? modal : undefined}
-      active={isActive}
-      symbol={symbol}
+      isActive={isActive}
+      isPressed={isPressed}
+      symbol={children}
       status={status}
-    />
+    >
+      {modal}
+    </Presentational>
   );
 };
 

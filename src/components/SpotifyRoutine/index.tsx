@@ -1,7 +1,6 @@
 import React, {
   FunctionComponent, useState, useEffect, useCallback,
 } from 'react';
-import Presentational from './presentational';
 import { ReactComponent as SymbolOn } from '../../assets/svgs/music-on.svg';
 import { ReactComponent as SymbolOff } from '../../assets/svgs/music-off.svg';
 import SpotifyModal from './SpotifyModal';
@@ -9,13 +8,15 @@ import * as SpotifyApi from '../../api/spotify';
 import * as LS from '../../utils/localStorage';
 import * as WindowUtils from '../../utils/window';
 import ErrorHeader from '../ErrorHeader';
+import RoutineComponent from '../RoutineComponent';
 
-const modalCreator = (close: () => void): JSX.Element => <SpotifyModal close={close} />;
+const spotifyModalCreator = (close: () => void) => <SpotifyModal close={close} />;
 
 const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   const [accessToken, setAccessToken] = useState(LS.SPOTIFY_TOKEN());
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const Symbol = isPlayingMusic ? SymbolOff : SymbolOn;
 
   const updateErrorMessage = (message: string): void => {
     if (errorMessage.length === 0) {
@@ -67,15 +68,13 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
     return result;
   };
 
-  const errorHeader = <ErrorHeader />;
-  const error = errorMessage.length > 0 ? errorHeader : undefined;
   return (
-    <Presentational
-      Symbol={isPlayingMusic ? SymbolOff : SymbolOn}
+    <RoutineComponent
       handleClick={handleClick}
-      error={error}
-      modalCreator={modalCreator}
-    />
+      modalCreator={spotifyModalCreator}
+    >
+      <Symbol className="routine-icon" />
+    </RoutineComponent>
   );
 };
 

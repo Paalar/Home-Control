@@ -4,9 +4,12 @@ const getEventByKey = (event: string): string => (
   `https://maker.ifttt.com/trigger/${event}/with/key/${iftttKey}`
 );
 
-export const ifttEvent = (key: string): string => getEventByKey(key);
+const ifttEvent = (key: string): string => getEventByKey(key);
 
-export const startEvent = (url: string, handleError: () => void): void => {
+const startEvent = (key: string, handleError: () => void): void => {
+  const url = ifttEvent(key);
   fetch(url)
     .catch(() => handleError());
 };
+
+export default startEvent;

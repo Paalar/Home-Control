@@ -13,8 +13,9 @@ const SpotiffModal: FunctionComponent<ModalProps> = (props: ModalProps): JSX.Ele
   );
   return (
     <Modal
-      accept={close}
-      close={close}
+      onAcceptProp={close}
+      onCloseProp={close}
+      title="Spotify settings"
     >
       {loginButton}
     </Modal>
