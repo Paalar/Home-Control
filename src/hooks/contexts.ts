@@ -14,7 +14,7 @@ export const initialEvent: CoffeeEvent = {
 
 const initialContext: CoffeeEventContext = {
   ...initialEvent,
-  setNewEvent: (newEvent: CoffeeEvent) => {},
+  setNewEvent: (newEvent: CoffeeEvent) => { },
 };
 
 const CoffeeEventContext = createContext<CoffeeEventContext>(initialContext);

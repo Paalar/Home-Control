@@ -18,7 +18,6 @@ const ATB: FunctionComponent = (): JSX.Element => {
   const fetchBusData = (): void => {
     enturService.getDeparturesFromStopPlace(bakkegataId)
       .then((buses) => {
-        console.log(buses);
         const busesToCityCenter = buses
           .filter((bus) => bus.quay?.id === toCityCenterId)
           .slice(0, displaySize);

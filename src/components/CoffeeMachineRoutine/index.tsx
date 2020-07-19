@@ -38,7 +38,6 @@ const CoffeeMachineRoutine: FunctionComponent = (): JSX.Element => {
       setIsBrewing(true);
       const eventUrl = ifttEvent(event.key);
       startEvent(eventUrl, handleError);
-      console.log(`Brewing! ${event.name}`);
       setTimeout(() => {
         setIsBrewing(false);
       }, TIMEOUT(event.key));

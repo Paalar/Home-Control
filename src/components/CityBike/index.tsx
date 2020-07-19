@@ -55,8 +55,10 @@ const CityBike = (): JSX.Element => {
     return <Presentational stations={[]} />;
   }
 
-  const filteredStations = filterUnusedStations(stationResponse!.data.stations);
-  const filteredStatuses = filterUnusedStatuses(filteredStations, statusResponse!.data.stations);
+  const filteredStations = filterUnusedStations(stationResponse?.data.stations || []);
+  const filteredStatuses = filterUnusedStatuses(
+    filteredStations, statusResponse?.data.stations || [],
+  );
   const mergedData = mergeStationData(filteredStations, filteredStatuses);
 
   return (

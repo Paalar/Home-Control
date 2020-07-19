@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // Spotify
 interface SpotifyDevice {
   id: 'string';
