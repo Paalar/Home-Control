@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { SVG } from '../../interfaces/Common';
 import CoffeeMachineModal from './coffeeMachineModal';
 import CoffeeEventContext from '../../hooks/contexts';
-import RoutineComponent, { createStatus } from '../RoutineComponent';
+import RoutineComponent from '../RoutineComponent';
 
 interface Props {
   Symbol: SVG;
@@ -21,11 +21,10 @@ const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => 
         const modalCreator = (close: () => void): JSX.Element => (
           <CoffeeMachineModal event={{ key, name }} close={close} />
         );
-        const status = createStatus(contextEvent.name);
         return (
           <RoutineComponent
             symbol={symbol}
-            status={status}
+            status={contextEvent.name}
             handleClick={handleClick}
             modalCreator={modalCreator}
           />

@@ -1,14 +1,10 @@
 import React, { FunctionComponent, useState } from 'react';
 import Presentational from './presentational';
 
-export const createStatus = (statusMessage: string): JSX.Element => (
-  <p className="routine-status">{`Status: ${statusMessage}`}</p>
-);
-
 interface Props {
   modalCreator: (close: () => void) => JSX.Element;
   symbol: JSX.Element;
-  status?: JSX.Element;
+  status?: string;
   handleClick: () => boolean|Promise<boolean>;
 }
 

@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import './routineComponent.scss';
 
 interface Props {
   modal?: JSX.Element;
   symbol: JSX.Element;
-  status?: JSX.Element;
+  status?: string;
   active: boolean;
   handleLeave: () => void;
   handlePress: () => void;
 }
 
-const Presentational = (props: Props): JSX.Element => {
+interface StatusProps {
+  status?: string;
+}
+
+const StatusMessage: FunctionComponent<StatusProps> = ({ status }: StatusProps) => {
+  if (status) {
+    return <p className="routine-status">{`Status: ${status}`}</p>;
+  }
+  return <></>;
+};
+
+const Presentational: FunctionComponent<Props> = (props: Props) => {
   const {
     modal, active, symbol, handleLeave, handlePress, status,
   } = props;
@@ -32,6 +43,7 @@ const Presentational = (props: Props): JSX.Element => {
       >
         <div className="icon__wrapper" style={style}>{symbol}</div>
       </div>
+      <StatusMessage status={status} />
     </div>
   );
 };
