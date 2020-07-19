@@ -7,12 +7,10 @@ import RoutineComponent, { createStatus } from '../RoutineComponent';
 interface Props {
   Symbol: SVG;
   handleClick: () => boolean;
-  isBrewing: boolean;
-  error?: JSX.Element;
 }
 
 const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const { Symbol, handleClick, error } = props;
+  const { Symbol, handleClick } = props;
 
   const symbol = <Symbol className="routine-icon" />;
 
@@ -25,15 +23,12 @@ const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => 
         );
         const status = createStatus(contextEvent.name);
         return (
-          <>
-            <RoutineComponent
-              symbol={symbol}
-              status={status}
-              handleClick={handleClick}
-              modalCreator={modalCreator}
-            />
-            {error}
-          </>
+          <RoutineComponent
+            symbol={symbol}
+            status={status}
+            handleClick={handleClick}
+            modalCreator={modalCreator}
+          />
         );
       }}
     </CoffeeEventContext.Consumer>

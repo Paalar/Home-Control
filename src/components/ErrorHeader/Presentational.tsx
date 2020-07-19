@@ -4,11 +4,10 @@ interface Props {
   errorMessage: string;
 }
 
-const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const { errorMessage } = props;
+const Presentational: FunctionComponent<Props> = ({ errorMessage }: Props): JSX.Element => {
   return (
-    <div className="error-header" >
-      <p className="error-message">
+    <div className="error__header">
+      <p className="error__message">
         {errorMessage}
       </p>
     </div>

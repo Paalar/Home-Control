@@ -6,8 +6,7 @@ const getEventByKey = (event: string): string => (
 
 export const ifttEvent = (key: string): string => getEventByKey(key);
 
-export const startEvent = (url: string): Promise<void> => (
+export const startEvent = (url: string, handleError: () => void): void => {
   fetch(url)
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error))
-);
+    .catch(() => handleError());
+};

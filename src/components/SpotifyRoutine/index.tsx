@@ -67,7 +67,7 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
     return result;
   };
 
-  const errorHeader = <ErrorHeader errorMessage={errorMessage} />;
+  const errorHeader = <ErrorHeader />;
   const error = errorMessage.length > 0 ? errorHeader : undefined;
   return (
     <Presentational

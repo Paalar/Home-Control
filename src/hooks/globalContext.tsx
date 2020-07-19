@@ -23,11 +23,11 @@ const initialState: GlobalState = {
 
 interface BaseAction {
   type: ActionTypes;
-  payload: unknown;
+  payload?: unknown;
 }
 
 interface SetErrorAction extends BaseAction {
-  payload: string;
+  payload?: string;
 }
 
 type GlobalActions = (

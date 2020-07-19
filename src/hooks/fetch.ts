@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { StationResponse, StationStatusResponse } from '../interfaces/CityBike';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Response = any | undefined;
-type FetchResponse = [Response, boolean, boolean];
+export type FetchResponse = [Response, boolean, boolean];
 export type StationState = StationResponse | undefined;
 export type StationStatusState = StationStatusResponse | undefined;
 

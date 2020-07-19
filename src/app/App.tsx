@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.scss';
 import './common.scss';
 import CityBike from '../components/CityBike/index';
@@ -13,11 +13,6 @@ const App = (): JSX.Element => (
       <ATB />
     </div>
     <div id="home-control-container">
-      {/* <RoutineComponent type={RoutineTypes.LightsRoutine} />
-      <RoutineComponent type={RoutineTypes.LivingRoomHeaterRoutine} />
-      <RoutineComponent type={RoutineTypes.BedroomHeaterRoutine} />
-      <RoutineComponent type={RoutineTypes.PCRoutine} />
-      <RoutineComponent type={RoutineTypes.TVRoutine} /> */}
       <SpotifyRoutine />
       <CoffeeMachineRoutine />
     </div>
