@@ -16,7 +16,7 @@ const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element =
   const {
     modalCreator, symbol, handleClick, status,
   } = props;
-  const [active, setActive] = useState(false);
+  const [isActive, setActive] = useState(false);
   const [pressed, setPressed] = useState(false);
   let longPressTimer: any;
 
@@ -27,7 +27,7 @@ const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element =
   const handleLeave = async (): Promise<void> => {
     clearTimeout(longPressTimer);
     if (!pressed && await handleClick()) {
-      setActive(!active);
+      setActive(!isActive);
     }
   };
 
@@ -39,7 +39,7 @@ const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element =
       handleLeave={handleLeave}
       handlePress={handlePress}
       modal={pressed ? modal : undefined}
-      active={active}
+      active={isActive}
       symbol={symbol}
       status={status}
     />
