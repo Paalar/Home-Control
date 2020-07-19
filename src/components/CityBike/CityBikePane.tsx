@@ -12,12 +12,14 @@ const CityBikePane: FunctionComponent<Props> = (props: Props): JSX.Element => {
   return (
     <div className="second-box text-pane">
       <p className="text-pane__description">{stationName}</p>
-      <p className="text-pane__value">
-        {bikesAvailable}
-        /
-        {capacity}
+      <span className="text-pane__value">
+        <p>
+          {bikesAvailable}
+          /
+          {capacity}
+        </p>
         <BicycleSymbol style={{ verticalAlign: 'middle', marginLeft: '0.3em' }} />
-      </p>
+      </span>
     </div>
   );
 };
