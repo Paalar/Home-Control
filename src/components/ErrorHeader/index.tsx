@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useState, useContext } from 'react';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import React, {
+  FunctionComponent,
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
 import { createPortal } from 'react-dom';
 import Presentational from './Presentational';
 import './errorHeader.scss';
@@ -13,14 +19,14 @@ const ErrorHeader: FunctionComponent = (): JSX.Element => {
   container.className = 'error-container';
 
   useEffect(() => {
-    errorRoot?.appendChild(container);
+    errorRoot!.appendChild(container);
     setTimeout(() => {
       dispatch({ type: GlobalActionEnum.SET_ERROR, payload: undefined });
     }, fadeTime);
 
     return (): void => {
       clearTimeout(fadeTime);
-      errorRoot?.removeChild(container);
+      errorRoot!.removeChild(container);
     };
   }, [container, dispatch]);
 
