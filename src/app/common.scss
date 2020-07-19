@@ -1,4 +1,5 @@
 @import "../assets/colors.scss";
+@import "../assets/mixins.scss";
 
 $small-device-height: 600px;
 
@@ -35,6 +36,7 @@ $small-device-height: 600px;
 }
 
 %pane {
+  position: relative;
   color: black;
   background-color: white;
   font-size: 1rem;
@@ -57,11 +59,25 @@ $small-device-height: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 
   .text-pane__description {
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: hidden;
+    width: 70%;
+    max-width: 70%;
+
+    .overflowing {
+      animation: linear overflow-text 10s infinite running;
+      @include keyframes(overflow-text) {
+        from {
+          margin-left: 100%;
+        }
+        to {
+          margin-left: -200%;
+        }
+      }
+    }
   }
 
   .text-pane__value {

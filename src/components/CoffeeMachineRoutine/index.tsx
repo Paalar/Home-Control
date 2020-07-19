@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useContext, useEffect, useCallback } from 'react';
+import React, { FunctionComponent, useState, useContext } from 'react';
 import Presentational from './presentational';
 import { ReactComponent as SymbolOn } from '../../assets/svgs/coffee-on.svg';
 import { ReactComponent as SymbolOff } from '../../assets/svgs/coffee-off.svg';
