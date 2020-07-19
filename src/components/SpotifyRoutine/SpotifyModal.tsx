@@ -2,10 +2,13 @@ import React, { FunctionComponent } from 'react';
 import Modal from '../Modal';
 import { spotifyAuthorizationUrl } from '../../api/spotify';
 import './spotifyComponent.scss';
-import { ModalProps } from '../../interfaces/Common';
 
-const SpotiffModal: FunctionComponent<ModalProps> = (props: ModalProps): JSX.Element => {
-  const { close } = props;
+interface Props {
+  onClose: () => void;
+}
+
+const SpotiffModal: FunctionComponent<Props> = (props: Props): JSX.Element => {
+  const { onClose } = props;
   const loginButton = (
     <button id="spotify-login" type="button">
       <a href={spotifyAuthorizationUrl}>Login to Spotify</a>
@@ -13,8 +16,7 @@ const SpotiffModal: FunctionComponent<ModalProps> = (props: ModalProps): JSX.Ele
   );
   return (
     <Modal
-      onAcceptProp={close}
-      onCloseProp={close}
+      onCloseProp={onClose}
       title="Spotify settings"
     >
       {loginButton}

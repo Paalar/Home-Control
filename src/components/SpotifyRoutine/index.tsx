@@ -1,5 +1,5 @@
 import React, {
-  FunctionComponent, useState, useEffect, useCallback,
+  FunctionComponent, useState, useEffect, useCallback, useContext,
 } from 'react';
 import { ReactComponent as SymbolOn } from '../../assets/svgs/music-on.svg';
 import { ReactComponent as SymbolOff } from '../../assets/svgs/music-off.svg';
@@ -7,21 +7,19 @@ import SpotifyModal from './SpotifyModal';
 import * as SpotifyApi from '../../api/spotify';
 import * as LS from '../../utils/localStorage';
 import * as WindowUtils from '../../utils/window';
-import ErrorHeader from '../ErrorHeader';
 import RoutineComponent from '../RoutineComponent';
+import { GlobalContext, GlobalActionEnum } from '../../hooks/globalContext';
 
-const spotifyModalCreator = (close: () => void) => <SpotifyModal close={close} />;
+const spotifyModalCreator = (onClose: () => void) => <SpotifyModal onClose={onClose} />;
 
 const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
+  const { dispatch } = useContext(GlobalContext);
   const [accessToken, setAccessToken] = useState(LS.SPOTIFY_TOKEN());
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
   const Symbol = isPlayingMusic ? SymbolOff : SymbolOn;
 
-  const updateErrorMessage = (message: string): void => {
-    if (errorMessage.length === 0) {
-      setErrorMessage(message);
-    }
+  const dispatchError = (message: string): void => {
+    dispatch({ type: GlobalActionEnum.SET_ERROR, payload: message });
   };
 
   const updatePlayState = useCallback(
@@ -55,9 +53,9 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
     let promise: Response;
 
     if (isPlayingMusic) {
-      promise = await SpotifyApi.pauseSpotify(updateErrorMessage);
+      promise = await SpotifyApi.pauseSpotify(dispatchError);
     } else {
-      promise = await SpotifyApi.resumeSpotify(updateErrorMessage);
+      promise = await SpotifyApi.resumeSpotify(dispatchError);
     }
     return promise.ok;
   };
