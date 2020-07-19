@@ -24,7 +24,7 @@ const BusPane: FunctionComponent<Props> = (props: Props): JSX.Element => {
     <div className="bus-pane text-pane second-box">
       <span ref={setOverflow} className="text-pane__description">
         <p className={isOverflowing ? 'overflowing' : ''}>
-          {departure.serviceJourney.journeyPattern.line.publicCode}
+          {departure.serviceJourney.journeyPattern?.line.publicCode}
           {` ${'-'} `}
           {departure.destinationDisplay.frontText}
         </p>
