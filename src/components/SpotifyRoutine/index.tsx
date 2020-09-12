@@ -40,7 +40,7 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   const updatePlayState = useCallback(
     () => {
       if (LS.isSpotifyTokenAlive()) {
-        SpotifyApi.getPlaybackState(dispatchError)
+        SpotifyApi.getPlaybackState()
           .then((response) => {
             if (response != null) {
               setSong(response.item);
@@ -49,7 +49,7 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
           });
       }
     },
-    [dispatchError],
+    [],
   );
 
   useEffect(() => {

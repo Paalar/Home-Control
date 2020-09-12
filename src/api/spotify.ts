@@ -47,11 +47,11 @@ export const togglePlaySpotify = (
     })
 );
 
-export const getPlaybackState = (setError: ErrorFunction): Promise<SpotifyPlaybackResponse> => (
+export const getPlaybackState = (setError?: ErrorFunction): Promise<SpotifyPlaybackResponse> => (
   genericFetch(spotifyPlaybackState, 'GET')
     .then((response) => response.json())
     .catch((error) => {
-      setError(ERROR_GET_PLAYBACK);
+      if (setError) setError(ERROR_GET_PLAYBACK);
       return error;
     })
 );
