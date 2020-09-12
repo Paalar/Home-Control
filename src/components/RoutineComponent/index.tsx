@@ -21,7 +21,7 @@ const RoutineComponent: FunctionComponent<Props> = (props: Props): JSX.Element =
   let longPressTimer: number;
 
   const handlePress = (): void => {
-    longPressTimer = setTimeout(() => setPressed(true), 500);
+    longPressTimer = window.setTimeout(() => setPressed(true), 500);
   };
 
   const handleLeave = async (): Promise<void> => {
