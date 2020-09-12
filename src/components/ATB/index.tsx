@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
-import createnturService, { EstimatedCall } from '@entur/sdk';
+import EnturSrvice, { EstimatedCall } from '@entur/sdk';
 import moment from 'moment';
 import './atb.scss';
 import Presentational from './presentational';
 
-const enturService = createnturService({ clientName: 'gpd-hc' });
+const enturService = new EnturSrvice({ clientName: 'gpd-hc' });
 const displaySize = 5;
 const bakkegataId = 'NSR:StopPlace:43577';
 const toCityCenterId = 'NSR:Quay:74792';
@@ -16,7 +16,7 @@ const ATB: FunctionComponent = (): JSX.Element => {
   const currentTime = moment();
 
   const fetchBusData = (): void => {
-    enturService.getDeparturesFromStopPlace(bakkegataId)
+    enturService.getStopPlaceDepartures(bakkegataId)
       .then((buses) => {
         const busesToCityCenter = buses
           .filter((bus) => bus.quay?.id === toCityCenterId)
