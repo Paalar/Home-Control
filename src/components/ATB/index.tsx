@@ -1,16 +1,19 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
-import EnturSrvice, { EstimatedCall } from '@entur/sdk';
+import React, { FC, useState, useEffect } from 'react';
+import EnturService, { EstimatedCall } from '@entur/sdk';
 import moment from 'moment';
 import './atb.scss';
 import Presentational from './presentational';
 
-const enturService = new EnturSrvice({ clientName: 'gpd-hc' });
 const displaySize = 5;
 const bakkegataId = 'NSR:StopPlace:43577';
 const toCityCenterId = 'NSR:Quay:74792';
 const fromCityCenterId = 'NSR:Quay:74793';
 
-const ATB: FunctionComponent = (): JSX.Element => {
+interface ATBProps {
+  enturService: EnturService;
+}
+
+const ATB: FC<ATBProps> = ({ enturService }) => {
   const [departuresToCityCenter, setDepartuesToCityCenter] = useState<EstimatedCall[]>([]);
   const [departuesFromCityCenter, setDeparturesFromCityCenter] = useState<EstimatedCall[]>([]);
   const currentTime = moment();

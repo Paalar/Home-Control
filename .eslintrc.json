@@ -19,7 +19,8 @@
     "jsx-a11y/click-events-have-key-events": "off",
     "react/require-default-props": "off",
     "import/extensions": "off",
-    "@typescript-eslint/camelcase": "off"
+    "@typescript-eslint/camelcase": "off",
+    "react/prop-types": "off"
   },
   "settings": {
     "import/extensions": [".js",".jsx",".ts",".tsx"],

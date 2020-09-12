@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Presentational from './presentational';
 import {
   StationState,
@@ -16,7 +16,7 @@ const nonEmptyResponse = (respone: StationState | StationStatusState): boolean =
   !respone || !respone.data.stations.length
 );
 
-const CityBike = (): JSX.Element => {
+const CityBike: FC = () => {
   const [stationResponse] = useFetchStations();
   const [statusResponse] = useFetchStationStatuses();
 
