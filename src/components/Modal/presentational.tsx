@@ -1,16 +1,16 @@
 import React, { FunctionComponent } from 'react';
 
 interface Props {
-  children: JSX.Element
-  onAccept: () => void
-  onClose: () => void
-  title?: string
+  children: JSX.Element;
+  onAccept: () => void;
+  onClose: () => void;
+  title?: string;
 }
 
 interface ButtonProps {
-  children: string
-  id: string
-  onClick: () => void
+  children: string;
+  id: string;
+  onClick: () => void;
 }
 
 const Button: FunctionComponent<ButtonProps> = ({ onClick, id, children }: ButtonProps) => (

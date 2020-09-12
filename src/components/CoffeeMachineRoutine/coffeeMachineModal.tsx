@@ -7,9 +7,9 @@ const brewFor1: CoffeeEvent = { key: 'brew_coffee_for_1', name: 'Brew 1 cup', ti
 export const brewingEvents: CoffeeEvent[] = [brewFor1, brewFor2];
 
 interface Props {
-  event: CoffeeEvent
-  setBrewEvent: (event: CoffeeEvent) => void
-  onClose: () => void
+  event: CoffeeEvent;
+  setBrewEvent: (event: CoffeeEvent) => void;
+  onClose: () => void;
 }
 
 const eventSelector = (

@@ -13,8 +13,8 @@ interface Props {
 }
 
 interface GenericComponentProps {
-  condition: unknown
-  children: JSX.Element
+  condition: unknown;
+  children: JSX.Element;
 }
 
 const CreateComponent: FunctionComponent<GenericComponentProps> = (
@@ -54,7 +54,7 @@ const Presentational: FunctionComponent<Props> = (props: Props) => {
       </div>
       <CreateComponent condition={status}>
         <OverflowingText className="routine-status">
-          <p>{`Status: ${status}`}</p>
+          <p>{status}</p>
         </OverflowingText>
       </CreateComponent>
     </div>

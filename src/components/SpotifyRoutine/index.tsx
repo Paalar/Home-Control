@@ -33,9 +33,9 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const Symbol = isPlaying ? SymbolOff : SymbolOn;
 
-  const dispatchError = (message: string): void => {
+  const dispatchError = useCallback((message: string): void => {
     dispatch({ type: GlobalActionEnum.SET_ERROR, payload: message });
-  };
+  }, [dispatch]);
 
   const updatePlayState = useCallback(
     () => {
@@ -49,7 +49,7 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
           });
       }
     },
-    [],
+    [dispatchError],
   );
 
   useEffect(() => {
