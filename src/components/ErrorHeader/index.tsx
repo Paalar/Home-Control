@@ -1,53 +1,40 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import React, {
+  FunctionComponent,
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
 import { createPortal } from 'react-dom';
 import Presentational from './Presentational';
 import './errorHeader.scss';
+import { GlobalContext, GlobalActionEnum } from '../../hooks/globalContext';
 
-interface Props {
-  errorMessage: string;
-}
+const errorRoot = document.getElementById('error-root');
+const fadeTime = 5000;
 
-
-const ErrorHeader: FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const { errorMessage } = props;
-  const errorRoot = document.getElementById('error-root');
-  const container = document.createElement('div');
-  container.setAttribute('class', 'error-container');
-  container.addEventListener('click', () => {
-    if (errorRoot !== null) {
-      errorRoot.hidden = true;
-      console.log(errorRoot.hidden);
-    }
-  });
+const ErrorHeader: FunctionComponent = (): JSX.Element => {
+  const { state, dispatch } = useContext(GlobalContext);
+  const [container] = useState<HTMLDivElement>(document.createElement('div'));
+  container.className = 'error-container';
 
   useEffect(() => {
-    if (errorRoot !== null) {
-      errorRoot.appendChild(container);
+    errorRoot!.appendChild(container);
+    setTimeout(() => {
+      dispatch({ type: GlobalActionEnum.SET_ERROR, payload: undefined });
+    }, fadeTime);
 
-      if (errorRoot.hidden) {
-        errorRoot.removeChild(container);
-        errorRoot.hidden = false;
-      }
-    }
     return (): void => {
-      if (errorRoot !== null) {
-        try {
-          errorRoot.removeChild(container);
-          errorRoot.hidden = false;
-        } catch (error) {
-          console.log(error);
-        }
-      }
+      clearTimeout(fadeTime);
+      errorRoot!.removeChild(container);
     };
-  }, [container, errorRoot]);
+  }, [container, dispatch]);
 
-  const errorHeader = (
-    <Presentational errorMessage={errorMessage} />
-  );
+  if (!state.error) return <></>;
 
   return (
     createPortal(
-      errorHeader,
+      <Presentational errorMessage={state.error} />,
       container,
     )
   );

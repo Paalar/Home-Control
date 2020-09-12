@@ -1,38 +1,52 @@
 import React, {
-  FunctionComponent, useState, useEffect, useCallback,
+  FunctionComponent, useState, useEffect, useCallback, useContext,
 } from 'react';
-import Presentational from './presentational';
 import { ReactComponent as SymbolOn } from '../../assets/svgs/music-on.svg';
 import { ReactComponent as SymbolOff } from '../../assets/svgs/music-off.svg';
 import SpotifyModal from './SpotifyModal';
 import * as SpotifyApi from '../../api/spotify';
 import * as LS from '../../utils/localStorage';
 import * as WindowUtils from '../../utils/window';
-import ErrorHeader from '../ErrorHeader';
+import RoutineComponent from '../RoutineComponent';
+import { GlobalContext, GlobalActionEnum } from '../../hooks/globalContext';
+import { SpotifyItem, SpotifyPlaybackResponse } from '../../interfaces/API';
 
-const modalCreator = (close: () => void): JSX.Element => <SpotifyModal close={close} />;
+const spotifyModalCreator = (onClose: () => void) => <SpotifyModal onClose={onClose} />;
+
+const getStatus = (isPlaying: boolean, song: SpotifyItem | undefined): string => {
+  if (!LS.SPOTIFY_TOKEN()) {
+    return 'No token';
+  }
+  if (!LS.isSpotifyTokenAlive()) {
+    return 'Token expired';
+  }
+  if (song && isPlaying) {
+    return song.name;
+  }
+  return 'Paused';
+};
 
 const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
+  const { dispatch } = useContext(GlobalContext);
   const [accessToken, setAccessToken] = useState(LS.SPOTIFY_TOKEN());
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [song, setSong] = useState<SpotifyItem>();
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const Symbol = isPlaying ? SymbolOff : SymbolOn;
 
-  const updateErrorMessage = (message: string): void => {
-    if (errorMessage.length === 0) {
-      setErrorMessage(message);
-    }
+  const dispatchError = (message: string): void => {
+    dispatch({ type: GlobalActionEnum.SET_ERROR, payload: message });
   };
 
   const updatePlayState = useCallback(
     () => {
       if (LS.isSpotifyTokenAlive()) {
-        SpotifyApi.getPlaybackState()
+        SpotifyApi.getPlaybackState(dispatchError)
           .then((response) => {
             if (response != null) {
-              setIsPlayingMusic(response.is_playing);
+              setSong(response.item);
+              setIsPlaying(response.is_playing);
             }
-          })
-          .catch((error) => console.log(error));
+          });
       }
     },
     [],
@@ -46,36 +60,25 @@ const SpotifyRoutine: FunctionComponent = (): JSX.Element => {
       if (token !== LS.SPOTIFY_TOKEN() && !LS.isSpotifyTokenAlive()) {
         LS.setSpotifytoken(token);
         setAccessToken(token);
+        window.location.reload();
       }
     }
   }, [accessToken, updatePlayState]);
 
-  const handleSpotifyRequest = async (): Promise<boolean> => {
-    let promise: Response;
-
-    if (isPlayingMusic) {
-      promise = await SpotifyApi.pauseSpotify(updateErrorMessage);
-    } else {
-      promise = await SpotifyApi.resumeSpotify(updateErrorMessage);
-    }
-    return promise.ok;
-  };
-
   const handleClick = async (): Promise<boolean> => {
-    const result = await handleSpotifyRequest();
-    if (result) setIsPlayingMusic(!isPlayingMusic);
-    return result;
+    const result = await SpotifyApi.togglePlaySpotify(isPlaying, dispatchError);
+    if (result) setIsPlaying(!isPlaying);
+    return result.ok;
   };
 
-  const errorHeader = <ErrorHeader errorMessage={errorMessage} />;
-  const error = errorMessage.length > 0 ? errorHeader : undefined;
   return (
-    <Presentational
-      Symbol={isPlayingMusic ? SymbolOff : SymbolOn}
+    <RoutineComponent
       handleClick={handleClick}
-      error={error}
-      modalCreator={modalCreator}
-    />
+      modalCreator={spotifyModalCreator}
+      status={getStatus(isPlaying, song)}
+    >
+      <Symbol className="routine-icon" />
+    </RoutineComponent>
   );
 };
 

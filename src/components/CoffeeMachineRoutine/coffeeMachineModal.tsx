@@ -1,48 +1,44 @@
 import React, { FunctionComponent, useState } from 'react';
 import Modal from '../Modal';
-import Events from '../../constants/iftttEvents';
 import { CoffeeEvent } from '../../interfaces/IFTTT';
-import CoffeeEventContext from '../../hooks/contexts';
+
+const brewFor2: CoffeeEvent = { key: 'brew_coffee_for_2', name: 'Brew 2 cups', timeout: 35 * 60000 };
+const brewFor1: CoffeeEvent = { key: 'brew_coffee_for_1', name: 'Brew 1 cup', timeout: 5 * 60000 };
+export const brewingEvents: CoffeeEvent[] = [brewFor1, brewFor2];
 
 interface Props {
-  close: () => void;
-  event: CoffeeEvent;
+  event: CoffeeEvent
+  setBrewEvent: (event: CoffeeEvent) => void
+  onClose: () => void
 }
 
 const eventSelector = (
-  Events.map((event) => <option key={event.key} value={event.key}>{event.name}</option>)
+  brewingEvents.map((event) => <option key={event.key} value={event.key}>{event.name}</option>)
 );
 
-const CoffeeMachineModal: FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const { close, event } = props;
-  const [newEvent, setNewEvent] = useState(event);
-  const handleChange = (ChangeEvent: React.ChangeEvent<HTMLSelectElement>):
-    void => setNewEvent(Events[ChangeEvent.target.selectedIndex]);
+const CoffeeMachineModal: FunctionComponent<Props> = (props: Props) => {
+  const { event, setBrewEvent, onClose } = props;
+  const [selectChoice, setSelectChoice] = useState(event);
+
+  const handleChange = (
+    { target }: React.ChangeEvent<HTMLSelectElement>,
+  ): void => setSelectChoice(brewingEvents[target.selectedIndex]);
+
+  const onAccept = () => setBrewEvent(selectChoice);
+
   return (
-    <CoffeeEventContext.Consumer>
-      {(contextEvent): JSX.Element => {
-        const onAccept = (): void => {
-          contextEvent.setNewEvent(newEvent);
-          close();
-        };
-        const selector = (
-          <select
-            onChange={handleChange}
-            value={newEvent.key}
-          >
-            {eventSelector}
-          </select>
-        );
-        return (
-          <Modal
-            accept={onAccept}
-            close={close}
-          >
-            {selector}
-          </Modal>
-        );
-      }}
-    </CoffeeEventContext.Consumer>
+    <Modal
+      onAcceptProp={onAccept}
+      onCloseProp={onClose}
+      title="Coffe machine settings"
+    >
+      <select
+        onChange={handleChange}
+        value={selectChoice.key}
+      >
+        {eventSelector}
+      </select>
+    </Modal>
   );
 };
 

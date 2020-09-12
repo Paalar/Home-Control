@@ -10,18 +10,16 @@ interface Props {
 const CityBikePane: FunctionComponent<Props> = (props: Props): JSX.Element => {
   const { bikesAvailable, stationName, capacity } = props;
   return (
-    <div className="city-bike-pane second-box pane">
-      <div className="city-bike-station">
-        <p>{stationName}</p>
-      </div>
-      <div className="city-bike-bicycles">
+    <div className="second-box text-pane">
+      <p className="text-pane__description">{stationName}</p>
+      <span className="text-pane__value">
         <p>
           {bikesAvailable}
           /
           {capacity}
-          <BicycleSymbol style={{ verticalAlign: 'middle', marginLeft: '0.3rem' }} />
         </p>
-      </div>
+        <BicycleSymbol style={{ verticalAlign: 'middle', marginLeft: '0.3em' }} />
+      </span>
     </div>
   );
 };

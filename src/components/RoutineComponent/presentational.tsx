@@ -1,32 +1,62 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import OverflowingText from '../OverflowingText';
+import './routineComponent.scss';
 
 interface Props {
-  modal?: JSX.Element;
   symbol: JSX.Element;
-  status?: JSX.Element;
-  active: boolean;
+  status?: string;
+  isActive: boolean;
+  isPressed: boolean;
   handleLeave: () => void;
   handlePress: () => void;
+  children: JSX.Element;
 }
 
-const Presentational = (props: Props): JSX.Element => {
+interface GenericComponentProps {
+  condition: unknown
+  children: JSX.Element
+}
+
+const CreateComponent: FunctionComponent<GenericComponentProps> = (
+  { condition, children }: GenericComponentProps,
+) => {
+  if (condition) {
+    return <>{children}</>;
+  }
+  return <></>;
+};
+
+const Presentational: FunctionComponent<Props> = (props: Props) => {
   const {
-    modal, active, symbol, handleLeave, handlePress, status,
+    isActive, isPressed, symbol, handleLeave, handlePress, status, children,
   } = props;
+
+  const flip = { transform: 'rotateY(0deg)' };
+  const flipBack = { transform: 'rotateY(360deg)' };
+  const style = isActive ? flip : flipBack;
 
   return (
     <div className="routine-component-container first-box">
-      {modal}
+      <CreateComponent condition={isPressed}>
+        {children}
+      </CreateComponent>
       <div
-        className={`routine-symbol-container second-box${active ? ' flip' : ''}`}
+        className="routine-symbol-container second-box"
+        style={style}
         onTouchStart={handlePress}
         onTouchEnd={handleLeave}
         onMouseDown={handlePress}
         onMouseUp={handleLeave}
       >
-        {symbol}
+        <div className="icon__wrapper" style={style}>
+          {symbol}
+        </div>
       </div>
-      {status}
+      <CreateComponent condition={status}>
+        <OverflowingText className="routine-status">
+          <p>{`Status: ${status}`}</p>
+        </OverflowingText>
+      </CreateComponent>
     </div>
   );
 };

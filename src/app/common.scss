@@ -1,18 +1,20 @@
 @import "../assets/colors.scss";
-@import "../assets/common.scss";
+@import "../assets/mixins.scss";
+
+$small-device-height: 600px;
 
 .info-container {
-  // width: 45rem;
+  height: min-content;
   background-color: $primary-color;
   padding: 20px;
   color: white;
-
-  :last-child {
-    margin-bottom: 0;
-  }
   @media only screen and (max-height: $small-device-height) {
     padding: 10px;
   }
+}
+
+.info-container:last-child {
+  margin-bottom: 0;
 }
 
 .title {
@@ -33,7 +35,8 @@
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.pane {
+%pane {
+  position: relative;
   color: black;
   background-color: white;
   font-size: 1rem;
@@ -47,52 +50,28 @@
   }
 }
 
-.routine-component-container {
-  height: 175px;
-  max-height: 175px;
-  width: 175px;
-  max-width: 175px;
-  background-color: $primary-color;
-
-  display: flex;
-  justify-content: center;
-  position: relative;
+.pane {
+  @extend %pane;
 }
 
-.routine-symbol-container {
-  height: 100px;
-  max-height: 100px;
-  width: 100px;
-  max-width: 100px;
-  background-color: white;
-
-  margin: auto;
+.text-pane {
+  @extend %pane;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
 
-  transition: all .4s;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-
-  img {
-    width: 80%;
+  .text-pane__description {
+    width: 70%;
+    max-width: 70%;
   }
-}
 
-.routine-status {
-  color: white;
-  position: absolute;
-  bottom: 0.5rem;
-}
-
-.flip {
-  transform: rotateY(180deg);
-}
-
-.routine-icon {
-  margin: auto;
-  width: 80%;
-  height: 80%;
+  .text-pane__value {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+    align-items: center;
+  }
 }
 
 button {

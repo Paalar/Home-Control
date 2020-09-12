@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import ICityBike from '../../interfaces/CityBike';
 import CityBikePane from './CityBikePane';
 import { ReactComponent as BicycleSymbol } from '../../assets/svgs/bicycle.svg';
+import { PANE_ICON_STYLE } from '../../assets/svgs/variables';
 
 interface Props {
   stations: ICityBike[];
@@ -18,22 +19,13 @@ const createCityBikePanes = (stations: ICityBike[]): JSX.Element[] => (
   ))
 );
 
-const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const { stations } = props;
+const Presentational: FunctionComponent<Props> = ({ stations }: Props): JSX.Element => {
   const cityBikePanes = createCityBikePanes(stations);
   return (
-    <div id="city-bike-container" className="info-container first-box">
+    <div className="city-bike__wrapper info-container first-box">
       <h1 className="title">
         Bysykkel
-        <BicycleSymbol
-          style={{
-            fill: 'white',
-            verticalAlign: 'middle',
-            marginLeft: '1rem',
-            width: '2rem',
-            height: '2rem',
-          }}
-        />
+        <BicycleSymbol style={PANE_ICON_STYLE} />
       </h1>
       {cityBikePanes}
     </div>

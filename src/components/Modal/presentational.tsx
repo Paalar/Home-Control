@@ -1,34 +1,44 @@
 import React, { FunctionComponent } from 'react';
 
 interface Props {
-  children: JSX.Element;
-  accept: () => void;
-  close: () => void;
+  children: JSX.Element
+  onAccept: () => void
+  onClose: () => void
+  title?: string
 }
 
+interface ButtonProps {
+  children: string
+  id: string
+  onClick: () => void
+}
+
+const Button: FunctionComponent<ButtonProps> = ({ onClick, id, children }: ButtonProps) => (
+  <button type="button" onClick={onClick} id={id}>
+    {children}
+  </button>
+);
+
 const Presentational: FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const { children, accept, close } = props;
+  const {
+    title,
+    onAccept,
+    onClose,
+    children,
+  } = props;
   return (
     <div id="modal-content">
-      <h1 className="title">Spotify Settings</h1>
+      <h1 className="title">{title}</h1>
       <div>
         {children}
       </div>
       <div id="modal-buttons">
-        <button
-          type="button"
-          id="modal-accept"
-          onClick={accept}
-        >
+        <Button id="modal-accept" onClick={onAccept}>
           Accept
-        </button>
-        <button
-          type="button"
-          id="modal-cancel"
-          onClick={close}
-        >
+        </Button>
+        <Button id="modal-cancel" onClick={onClose}>
           Cancel
-        </button>
+        </Button>
       </div>
     </div>
   );

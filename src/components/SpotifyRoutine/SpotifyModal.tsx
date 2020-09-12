@@ -2,21 +2,28 @@ import React, { FunctionComponent } from 'react';
 import Modal from '../Modal';
 import { spotifyAuthorizationUrl } from '../../api/spotify';
 import './spotifyComponent.scss';
-import { ModalProps } from '../../interfaces/Common';
+import { clearSpotifyStorage } from '../../utils/localStorage';
 
-const SpotiffModal: FunctionComponent<ModalProps> = (props: ModalProps): JSX.Element => {
-  const { close } = props;
-  const loginButton = (
-    <button id="spotify-login" type="button">
-      <a href={spotifyAuthorizationUrl}>Login to Spotify</a>
-    </button>
-  );
+interface Props {
+  onClose: () => void;
+}
+
+const SpotiffModal: FunctionComponent<Props> = (props: Props): JSX.Element => {
+  const { onClose } = props;
+  const clearSpotify = () => clearSpotifyStorage();
   return (
     <Modal
-      accept={close}
-      close={close}
+      onCloseProp={onClose}
+      title="Spotify settings"
     >
-      {loginButton}
+      <div>
+        <button id="spotify-login" type="button">
+          <a href={spotifyAuthorizationUrl}>Login to Spotify</a>
+        </button>
+        <button type="button" onClick={clearSpotify}>
+          Delete token
+        </button>
+      </div>
     </Modal>
   );
 };

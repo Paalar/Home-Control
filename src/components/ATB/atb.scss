@@ -1,16 +1,22 @@
 @import "../../assets/colors.scss";
 
-#departures-container {
+.departures__wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  .departures {
+    max-width: calc(50% - 10px);
+    width: 50%;
+    &:first-of-type {
+      margin-right: 1em;
+    }
+  }
 }
 
 .bus-pane {
-  display: flex;
-  justify-content: space-between;
-
+  font-size: 13px;
   p:first-child {
-    margin-right: 1rem;
+    margin-right: 10px;
   }
 }

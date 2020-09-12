@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback, useState } from 'react';
 import { EstimatedCall } from '@entur/sdk';
 import moment from 'moment';
+import OverflowingText from '../OverflowingText';
 
 interface Props {
   departure: EstimatedCall;
@@ -15,13 +16,15 @@ const BusPane: FunctionComponent<Props> = (props: Props): JSX.Element => {
     return (<></>);
   }
   return (
-    <div className="bus-pane pane second-box">
-      <p>
-        {departure.serviceJourney.journeyPattern.line.publicCode}
-        {` ${'-'} `}
-        {departure.destinationDisplay.frontText}
-      </p>
-      <p>
+    <div className="bus-pane text-pane second-box">
+      <OverflowingText className="text-pane__description overflowing__wrapper">
+        <p>
+          {departure.serviceJourney.journeyPattern?.line.publicCode}
+          {` ${'-'} `}
+          {departure.destinationDisplay.frontText}
+        </p>
+      </OverflowingText>
+      <p className="text-pane__value">
         {minutesLeft <= 0 ? 'Nå' : `${minutesLeft} min.`}
       </p>
     </div>
